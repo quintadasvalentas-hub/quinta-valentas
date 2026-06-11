@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Quinta Valentas">
+<meta name="theme-color" content="#1D9E75">
+<title>Quinta das Valentas</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+:root{
+  --v:#1D9E75;--v1:#E1F5EE;--v2:#085041;
+  --t:#D85A30;--t1:#FAECE7;--t2:#4A1B0C;
+  --a:#BA7517;--a1:#FAEEDA;--a2:#412402;
+  --bg:#FAFAF8;--card:#fff;--border:#e5e5e0;
+  --txt:#1a1a18;--txt2:#6b6b65;--txt3:#a0a09a;
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#111110;--card:#1c1c1a;--border:#2e2e2a;--txt:#f0f0ec;--txt2:#9a9a94;--txt3:#606060;
+  --v1:#0a2e22;--v2:#9FE1CB;--t1:#2e1208;--t2:#F0997B;--a1:#2a1e08;--a2:#FAC775;}
+}
+html,body{height:100%;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:16px;overscroll-behavior:none;}
+.app{display:flex;flex-direction:column;height:100vh;max-width:440px;margin:0 auto;}
+.header{height:56px;display:flex;align-items:center;padding:0 16px;gap:10px;background:var(--bg);border-bottom:0.5px solid var(--border);flex-shrink:0;}
+.logo{width:30px;height:30px;border-radius:50%;background:var(--v1);display:flex;align-items:center;justify-content:center;}
+.logo svg{width:16px;height:16px;stroke:var(--v);fill:none;stroke-width:2;stroke-linecap:round;}
+.header-text h1{font-size:15px;font-weight:600;color:var(--txt);}
+.header-text p{font-size:11px;color:var(--txt2);}
+.hdr-r{margin-left:auto;font-size:11px;color:var(--txt3);text-align:right;line-height:1.4;}
+.pages{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
+.page{display:none;padding:16px 16px 24px;}
+.page.active{display:block;}
+.bnav{height:64px;display:flex;background:var(--card);border-top:0.5px solid var(--border);flex-shrink:0;padding-bottom:env(safe-area-inset-bottom);overflow-x:auto;}
+.nb{flex:1;min-width:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;border:none;background:none;color:var(--txt3);padding:8px 2px;transition:color 0.15s;}
+.nb svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.nb span{font-size:9px;font-weight:500;}
+.nb.active{color:var(--v);}
+.sl{font-size:11px;font-weight:600;color:var(--txt2);letter-spacing:0.08em;text-transform:uppercase;margin:0 0 10px;}
+.card{background:var(--card);border:0.5px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;}
+.card h3{font-size:14px;font-weight:600;margin-bottom:5px;color:var(--txt);}
+.card p{font-size:13px;color:var(--txt2);line-height:1.5;}
+.cv{border-left:3px solid var(--v);border-radius:0 14px 14px 0;}
+.ct{border-left:3px solid var(--t);border-radius:0 14px 14px 0;}
+.ca{border-left:3px solid var(--a);border-radius:0 14px 14px 0;}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.metric{background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:12px;}
+.metric .lbl{font-size:11px;color:var(--txt2);margin-bottom:3px;}
+.metric .val{font-size:20px;font-weight:600;color:var(--txt);}
+.metric .sub{font-size:10px;color:var(--txt3);}
+.badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;}
+.bv{background:var(--v1);color:var(--v2);}.bt{background:var(--t1);color:var(--t2);}.ba{background:var(--a1);color:var(--a2);}
+.bb{background:#E6F1FB;color:#042C53;}@media(prefers-color-scheme:dark){.bb{background:#0a1e35;color:#85B7EB;}}
+.bgr{background:#EAF3DE;color:#27500A;}@media(prefers-color-scheme:dark){.bgr{background:#0f2010;color:#C0DD97;}}
+.lr{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:0.5px solid var(--border);}
+.lr:last-child{border-bottom:none;}
+.li{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.li svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+.lr h4{font-size:13px;font-weight:600;color:var(--txt);}
+.lr p{font-size:11px;color:var(--txt2);}
+.mla{margin-left:auto;}
+/* CHECKLIST */
+.cadd{display:flex;gap:8px;margin-bottom:12px;}
+.cadd input{flex:1;background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--txt);outline:none;}
+.cadd input::placeholder{color:var(--txt3);}
+.cadd input:focus{border-color:var(--v);}
+.cadd select{background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:10px 6px;font-size:12px;color:var(--txt);outline:none;cursor:pointer;}
+.cadd button{background:var(--v);color:#fff;border:none;border-radius:10px;padding:10px 16px;font-size:18px;font-weight:700;cursor:pointer;flex-shrink:0;}
+.ccats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.ccat{font-size:11px;padding:4px 10px;border-radius:20px;border:0.5px solid var(--border);background:var(--card);color:var(--txt2);cursor:pointer;font-weight:500;}
+.ccat.active{background:var(--v1);color:var(--v2);border-color:var(--v);}
+.cstats{display:flex;gap:8px;margin-bottom:10px;}
+.cstat{flex:1;background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:10px;text-align:center;}
+.cstat .n{font-size:18px;font-weight:700;color:var(--txt);}
+.cstat .l{font-size:10px;color:var(--txt2);}
+.prog{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:14px;}
+.progf{height:100%;background:var(--v);border-radius:3px;transition:width 0.3s;}
+.ci{display:flex;align-items:center;gap:10px;padding:11px 12px;background:var(--card);border:0.5px solid var(--border);border-radius:12px;margin-bottom:7px;}
+.ci.done{opacity:0.4;}
+.ci.done .cit{text-decoration:line-through;color:var(--txt3);}
+.ccb{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+.ccb.chk{background:var(--v);border-color:var(--v);}
+.ccb svg{width:12px;height:12px;stroke:#fff;stroke-width:2.5;fill:none;opacity:0;}
+.ccb.chk svg{opacity:1;}
+.cit{flex:1;font-size:13px;color:var(--txt);}
+.cdel{background:none;border:none;color:var(--txt3);cursor:pointer;font-size:20px;padding:4px;line-height:1;}
+.group-hdr{font-size:11px;font-weight:700;color:var(--txt2);letter-spacing:0.07em;text-transform:uppercase;padding:14px 0 6px;border-bottom:0.5px solid var(--border);margin-bottom:8px;}
+/* ACTIVIDADE */
+.mnav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.mnav button{background:none;border:0.5px solid var(--border);border-radius:8px;padding:7px 14px;color:var(--txt);font-size:16px;cursor:pointer;}
+.mnav h2{font-size:15px;font-weight:600;color:var(--txt);}
+.ir{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:0.5px solid var(--border);}
+.ir label{font-size:13px;color:var(--txt2);flex:1;}
+.ir input{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;color:var(--txt);width:110px;text-align:right;outline:none;}
+.ir input:focus{border-color:var(--v);}
+.ares{background:var(--v1);border-radius:14px;padding:14px;margin:14px 0;}
+.ares h3{font-size:11px;color:var(--v2);margin-bottom:8px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ai .l{font-size:10px;color:var(--v2);opacity:0.8;}
+.ai .v{font-size:16px;font-weight:700;color:var(--v2);}
+.savebtn{width:100%;background:var(--v);color:#fff;border:none;border-radius:12px;padding:13px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:6px;}
+/* FINANÇAS */
+.tab-row{display:flex;gap:0;margin-bottom:14px;border:0.5px solid var(--border);border-radius:10px;overflow:hidden;}
+.tab-btn{flex:1;padding:10px 6px;font-size:12px;font-weight:600;border:none;background:none;color:var(--txt2);cursor:pointer;}
+.tab-btn.active{background:var(--v);color:#fff;}
+.radd{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.radd input{flex:1;min-width:80px;background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:9px 10px;font-size:13px;color:var(--txt);outline:none;}
+.radd input:focus{border-color:var(--v);}
+.radd select{background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:9px 6px;font-size:12px;color:var(--txt);outline:none;cursor:pointer;}
+.radd button{border:none;border-radius:10px;padding:9px 14px;font-size:16px;font-weight:700;cursor:pointer;flex-shrink:0;}
+.rbtn-r{background:var(--v);color:#fff;}
+.rbtn-c{background:var(--t);color:#fff;}
+.ritem{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--card);border:0.5px solid var(--border);border-radius:12px;margin-bottom:7px;}
+.ritem-desc{flex:1;font-size:13px;color:var(--txt);}
+.ritem-cat{font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;}
+.ritem-val{font-size:13px;font-weight:700;min-width:58px;text-align:right;}
+.ritem-del{background:none;border:none;color:var(--txt3);cursor:pointer;font-size:18px;padding:2px 4px;}
+.rtotals{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+.rtotal{background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:10px;text-align:center;}
+.rtotal .rl{font-size:10px;color:var(--txt2);margin-bottom:2px;}
+.rtotal .rv{font-size:16px;font-weight:700;}
+/* PROJEÇÕES */
+.proj-tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;}
+.ptab{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--border);background:var(--card);color:var(--txt2);cursor:pointer;white-space:nowrap;font-weight:500;flex-shrink:0;}
+.ptab.active{background:var(--v);color:#fff;border-color:var(--v);}
+.proj-summary{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.ps{background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:10px;}
+.ps .pl{font-size:10px;color:var(--txt2);margin-bottom:2px;}
+.ps .pv{font-size:17px;font-weight:700;}
+.pr{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border);}
+.pr:last-child{border-bottom:none;}
+.pr-label{font-size:12px;color:var(--txt2);flex:1;}
+.pr-bw{flex:1;background:var(--border);border-radius:4px;height:7px;overflow:hidden;}
+.pr-b{height:100%;border-radius:4px;}
+.pr-val{font-size:12px;font-weight:700;min-width:46px;text-align:right;}
+/* SIMULADOR */
+.slg{margin-bottom:14px;}
+.sll{display:flex;justify-content:space-between;font-size:12px;color:var(--txt2);margin-bottom:5px;}
+.sll strong{color:var(--txt);font-weight:600;}
+input[type=range]{width:100%;height:4px;accent-color:var(--v);cursor:pointer;}
+.sres{background:var(--card);border:0.5px solid var(--border);border-radius:14px;padding:14px;margin:12px 0;}
+.sgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center;}
+.sl2{font-size:10px;color:var(--txt2);margin-bottom:2px;}
+.sv{font-size:15px;font-weight:600;color:var(--txt);}
+.stot{font-size:20px;font-weight:700;color:var(--v);}
+.sfooter{margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border);font-size:11px;color:var(--txt2);text-align:center;}
+/* ENTIDADES */
+.ent-filter{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;}
+.ef-btn{font-size:11px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--border);background:var(--card);color:var(--txt2);cursor:pointer;white-space:nowrap;font-weight:500;flex-shrink:0;}
+.ef-btn.active{background:var(--v1);color:var(--v2);border-color:var(--v);}
+.ent-card{background:var(--card);border:0.5px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;}
+.ent-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px;}
+.ent-name{font-size:14px;font-weight:600;color:var(--txt);}
+.ent-group{font-size:10px;color:var(--txt2);}
+.ent-why{font-size:12px;color:var(--txt2);line-height:1.5;margin-bottom:8px;}
+.ent-contacts{display:flex;flex-direction:column;gap:4px;}
+.ent-contact-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--txt2);}
+.ent-contact-item a{color:var(--v);text-decoration:none;}
+.ent-status{display:flex;align-items:center;gap:6px;margin-top:8px;padding-top:8px;border-top:0.5px solid var(--border);}
+.ent-status select{flex:1;background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:6px 8px;font-size:12px;color:var(--txt);outline:none;cursor:pointer;}
+.ent-status label{font-size:11px;color:var(--txt2);}
+.status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.sectgap{margin-top:20px;}
+.empty-state{text-align:center;color:var(--txt3);padding:24px;font-size:13px;}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="header">
+  <div class="logo">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6 8 4 14 12 22c8-8 6-14 0-20z"/><line x1="12" y1="22" x2="12" y2="10"/></svg>
+  </div>
+  <div class="header-text">
+    <h1>Quinta das Valentas</h1>
+    <p>Montemor-o-Novo · Alentejo</p>
+  </div>
+  <div class="hdr-r" id="hdr-date"></div>
+</div>
+
+<div class="pages">
+
+<!-- HOME -->
+<div class="page active" id="p-home">
+  <div class="metrics">
+    <div class="metric"><div class="lbl">Área</div><div class="val">8,5 ha</div><div class="sub">600m ribeira</div></div>
+    <div class="metric"><div class="lbl">AL</div><div class="val">Casa Freixo</div><div class="sub">Licença obtida ✓</div></div>
+    <div class="metric"><div class="lbl">Meta 2025</div><div class="val">38k€</div><div class="sub">receita anual</div></div>
+    <div class="metric"><div class="lbl">Ocupação alvo</div><div class="val">35%</div><div class="sub">1º ano</div></div>
+  </div>
+  <div class="sl">estado actual — casa do freixo</div>
+  <div class="card" style="padding:8px 14px;">
+    <div class="lr">
+      <div class="li" style="background:var(--v1);color:var(--v2);">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div><h4>Licença AL obtida</h4><p>Documentos afixados · Nome definido</p></div>
+      <span class="badge bv mla">Feito</span>
+    </div>
+    <div class="lr">
+      <div class="li" style="background:var(--v1);color:var(--v2);">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div><h4>Textos PT para Airbnb</h4><p>Propriedade, anfitrião, área</p></div>
+      <span class="badge bv mla">Feito</span>
+    </div>
+    <div class="lr">
+      <div class="li" style="background:var(--a1);color:var(--a2);">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div><h4>Fotografias e tradução EN</h4><p>Em edição · Seleccionar finais</p></div>
+      <span class="badge ba mla">Em curso</span>
+    </div>
+    <div class="lr">
+      <div class="li" style="background:var(--t1);color:var(--t2);">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div><h4>Conta Airbnb + anúncio</h4><p>Configurar esta semana</p></div>
+      <span class="badge bt mla">A fazer</span>
+    </div>
+  </div>
+  <div class="card cv sectgap">
+    <h3>Missão</h3>
+    <p>Turismo lento, regeneração ecológica do Rio Almansor e experiências imersivas em 8,5 hectares no Alentejo.</p>
+  </div>
+  <div class="card ca">
+    <h3>Como instalar no Android</h3>
+    <p><strong>1.</strong> Partilha este ficheiro para o teu Google Drive<br>
+    <strong>2.</strong> No Drive, abre o ficheiro → toca nos ⋮ → "Abrir com" → Chrome<br>
+    <strong>3.</strong> No Chrome, toca nos ⋮ → "Adicionar ao ecrã principal"<br>
+    <strong>Ou mais fácil:</strong> envia o ficheiro por email para ti própria e abre no Gmail → Chrome.</p>
+  </div>
+</div>
+
+<!-- CHECKLIST -->
+<div class="page" id="p-check">
+  <div class="cstats">
+    <div class="cstat"><div class="n" id="ck-total">0</div><div class="l">total</div></div>
+    <div class="cstat"><div class="n" id="ck-done" style="color:var(--v);">0</div><div class="l">feitas</div></div>
+    <div class="cstat"><div class="n" id="ck-pend" style="color:var(--t);">0</div><div class="l">pendentes</div></div>
+  </div>
+  <div class="prog"><div class="progf" id="prog" style="width:0%"></div></div>
+  <div class="ccats">
+    <button class="ccat active" data-cat="todas" onclick="filterCat(this)">Todas</button>
+    <button class="ccat" data-cat="AL" onclick="filterCat(this)">AL</button>
+    <button class="ccat" data-cat="Airbnb" onclick="filterCat(this)">Airbnb</button>
+    <button class="ccat" data-cat="admin" onclick="filterCat(this)">Admin</button>
+    <button class="ccat" data-cat="obra" onclick="filterCat(this)">Obra</button>
+    <button class="ccat" data-cat="jardim" onclick="filterCat(this)">Jardim</button>
+    <button class="ccat" data-cat="outro" onclick="filterCat(this)">Outro</button>
+  </div>
+  <div class="cadd">
+    <input type="text" id="new-task" placeholder="Nova tarefa..." onkeydown="if(event.key==='Enter')addTask()">
+    <select id="new-cat">
+      <option value="AL">AL</option><option value="Airbnb">Airbnb</option>
+      <option value="admin">Admin</option><option value="obra">Obra</option>
+      <option value="jardim">Jardim</option><option value="outro">Outro</option>
+    </select>
+    <button onclick="addTask()">+</button>
+  </div>
+  <div id="check-list"></div>
+  <button onclick="clearDone()" style="width:100%;margin-top:8px;background:none;border:0.5px solid var(--border);border-radius:10px;padding:10px;font-size:13px;color:var(--txt2);cursor:pointer;">Limpar concluídas</button>
+</div>
+
+<!-- ACTIVIDADE -->
+<div class="page" id="p-act">
+  <div class="mnav">
+    <button onclick="changeMonth(-1)">&#8592;</button>
+    <h2 id="month-title">Junho 2025</h2>
+    <button onclick="changeMonth(1)">&#8594;</button>
+  </div>
+  <div class="sl">registar actividade</div>
+  <div class="card" style="padding:10px 14px;">
+    <div class="ir"><label>Noites ocupadas</label><input type="number" id="in-noites" placeholder="0" min="0" max="31" oninput="calcAct()"></div>
+    <div class="ir"><label>Receita alojamento (€)</label><input type="number" id="in-al" placeholder="0" oninput="calcAct()"></div>
+    <div class="ir"><label>Receita experiências (€)</label><input type="number" id="in-exp" placeholder="0" oninput="calcAct()"></div>
+    <div class="ir"><label>Custos totais (€)</label><input type="number" id="in-custo" placeholder="0" oninput="calcAct()"></div>
+    <div class="ir" style="border:none;"><label>Nº hóspedes</label><input type="number" id="in-hosp" placeholder="0" oninput="calcAct()"></div>
+  </div>
+  <button class="savebtn" id="savebtn" onclick="saveMonth()">Guardar mês</button>
+  <div class="ares">
+    <h3>resumo do mês</h3>
+    <div class="agrid">
+      <div class="ai"><div class="l">Receita total</div><div class="v" id="r-total">—</div></div>
+      <div class="ai"><div class="l">Resultado líquido</div><div class="v" id="r-liq">—</div></div>
+      <div class="ai"><div class="l">Taxa de ocupação</div><div class="v" id="r-ocup">—</div></div>
+      <div class="ai"><div class="l">Receita/hóspede</div><div class="v" id="r-revpan">—</div></div>
+    </div>
+  </div>
+  <div class="sl sectgap">histórico</div>
+  <div id="hist-list"></div>
+</div>
+
+<!-- FINANÇAS -->
+<div class="page" id="p-fin">
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="finTab('rec',this)">Receitas</button>
+    <button class="tab-btn" onclick="finTab('cus',this)">Custos</button>
+    <button class="tab-btn" onclick="finTab('proj',this)">Projeções</button>
+  </div>
+  <div id="ft-rec">
+    <div class="rtotals" id="rec-totals"></div>
+    <div class="radd">
+      <input type="text" id="rec-desc" placeholder="Descrição...">
+      <input type="number" id="rec-val" placeholder="€" style="width:80px;flex:none;">
+      <select id="rec-cat">
+        <option value="AL">AL</option><option value="exp">Exp.</option>
+        <option value="prod">Prod.</option><option value="outro">Outro</option>
+      </select>
+      <button class="rbtn-r" onclick="addRec()">+</button>
+    </div>
+    <div id="rec-list"></div>
+  </div>
+  <div id="ft-cus" style="display:none;">
+    <div class="rtotals" id="cus-totals"></div>
+    <div class="radd">
+      <input type="text" id="cus-desc" placeholder="Descrição...">
+      <input type="number" id="cus-val" placeholder="€" style="width:80px;flex:none;">
+      <select id="cus-cat">
+        <option value="equipa">Equipa</option><option value="manut">Manut.</option>
+        <option value="plat">Plat.</option><option value="cons">Cons.</option>
+        <option value="reflo">Reflo.</option><option value="outro">Outro</option>
+      </select>
+      <button class="rbtn-c" onclick="addCus()">+</button>
+    </div>
+    <div id="cus-list"></div>
+  </div>
+  <div id="ft-proj" style="display:none;">
+    <div class="proj-tabs">
+      <button class="ptab active" data-yr="2026" onclick="showPY(this)">2026</button>
+      <button class="ptab" data-yr="2027" onclick="showPY(this)">2027</button>
+      <button class="ptab" data-yr="2028" onclick="showPY(this)">2028</button>
+      <button class="ptab" data-yr="2029" onclick="showPY(this)">2029</button>
+      <button class="ptab" data-yr="2030" onclick="showPY(this)">2030</button>
+    </div>
+    <div id="proj-content"></div>
+  </div>
+</div>
+
+<!-- ENTIDADES -->
+<div class="page" id="p-ent">
+  <div class="card cv" style="margin-bottom:14px;">
+    <h3>Acordos preferenciais</h3>
+    <p>Entidades a contactar para alojamento preferencial — técnicos, formadores, artistas em residência. Regista o estado de cada contacto.</p>
+  </div>
+  <div class="ent-filter">
+    <button class="ef-btn active" data-grp="todas" onclick="filterEnt(this)">Todas</button>
+    <button class="ef-btn" data-grp="cultural" onclick="filterEnt(this)">Culturais</button>
+    <button class="ef-btn" data-grp="coop" onclick="filterEnt(this)">Cooperativas</button>
+    <button class="ef-btn" data-grp="camara" onclick="filterEnt(this)">Câmara</button>
+    <button class="ef-btn" data-grp="univ" onclick="filterEnt(this)">Universidades</button>
+    <button class="ef-btn" data-grp="outros" onclick="filterEnt(this)">Outros</button>
+  </div>
+  <div id="ent-list"></div>
+</div>
+
+<!-- MERCADO -->
+<div class="page" id="p-mkt">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+    <span style="font-size:11px;color:var(--txt2);">Actualizado: <span id="mkt-date"></span></span>
+    <button onclick="refreshMkt()" id="mkt-btn" style="font-size:11px;padding:5px 10px;border-radius:8px;border:0.5px solid var(--v);color:var(--v);background:none;cursor:pointer;">↻ Actualizar</button>
+  </div>
+  <div class="sl">benchmarking — casas completas</div>
+  <div class="card" style="padding:8px 14px;">
+    <div class="lr"><div style="width:8px;height:8px;border-radius:50%;background:#1D9E75;flex-shrink:0;"></div><span style="flex:1;font-size:13px;">Casas Caiadas (Arraiolos)</span><span style="font-size:13px;font-weight:600;">420 €</span><span class="badge bt" style="margin-left:6px;">+40%</span></div>
+    <div class="lr"><div style="width:8px;height:8px;border-radius:50%;background:#5DCAA5;flex-shrink:0;"></div><span style="flex:1;font-size:13px;">La Casita (S.P. Gafanhoeira)</span><span style="font-size:13px;font-weight:600;">400 €</span><span class="badge bt" style="margin-left:6px;">+33%</span></div>
+    <div class="lr"><div style="width:8px;height:8px;border-radius:50%;background:#9FE1CB;flex-shrink:0;"></div><span style="flex:1;font-size:13px;">Cucumbi</span><span style="font-size:13px;font-weight:600;">360 €</span><span class="badge bt" style="margin-left:6px;">+20%</span></div>
+    <div class="lr" style="border-top:1px solid var(--border);margin-top:4px;padding-top:14px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--t);flex-shrink:0;"></div><span style="flex:1;font-size:13px;font-weight:600;">QV · Casa Freixo (6 pax)</span><span style="font-size:13px;font-weight:700;color:var(--t);">300 €</span></div>
+    <div class="lr"><div style="width:8px;height:8px;border-radius:50%;background:var(--a);flex-shrink:0;"></div><span style="flex:1;font-size:13px;font-weight:600;">QV · 3+ noites</span><span style="font-size:13px;font-weight:700;color:var(--a);">240 €</span></div>
+  </div>
+  <div class="metrics" style="margin-top:14px;">
+    <div class="metric"><div class="lbl">Média Booking</div><div class="val">218 €</div><div class="sub">Montemor · 2025</div></div>
+    <div class="metric"><div class="lbl">QV vs potencial</div><div class="val" style="color:var(--t);">-27%</div><div class="sub">margem para subir</div></div>
+  </div>
+  <div class="card ca">
+    <h3>Recomendação Airbnb — arranque</h3>
+    <p>Activar Modo Estreia · Preço inicial 15–20% abaixo para primeiras avaliações · Instant Book activado · Após 5 avaliações 4.8+, subir para <strong>320–350 €</strong>/noite.</p>
+  </div>
+  <div class="sl sectgap">simulador rápido</div>
+  <div class="slg"><div class="sll"><span>Noites/mês</span><strong id="sl-n-v">12</strong></div><input type="range" min="0" max="30" step="1" value="12" oninput="simCalc('n',this.value)"></div>
+  <div class="slg"><div class="sll"><span>Preço/noite</span><strong id="sl-p-v">300 €</strong></div><input type="range" min="200" max="500" step="10" value="300" oninput="simCalc('p',this.value)"></div>
+  <div class="slg"><div class="sll"><span>Experiências/mês</span><strong id="sl-e-v">400 €</strong></div><input type="range" min="0" max="3000" step="50" value="400" oninput="simCalc('e',this.value)"></div>
+  <div class="sres">
+    <div class="sgrid">
+      <div><div class="sl2">Alojamento</div><div class="sv" id="s-al">3600 €</div></div>
+      <div><div class="sl2">Experiências</div><div class="sv" id="s-exp">400 €</div></div>
+      <div><div class="sl2">Total/mês</div><div class="stot" id="s-tot">4000 €</div></div>
+    </div>
+    <div class="sfooter">Ocupação <strong id="s-ocp">40%</strong> · Anual est. <strong id="s-ano" style="color:var(--v);">48000 €</strong></div>
+  </div>
+</div>
+
+</div><!-- /pages -->
+
+<nav class="bnav">
+  <button class="nb active" onclick="goPage('home',this)">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Início</span>
+  </button>
+  <button class="nb" onclick="goPage('check',this)">
+    <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    <span>Tarefas</span>
+  </button>
+  <button class="nb" onclick="goPage('act',this)">
+    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <span>Actividade</span>
+  </button>
+  <button class="nb" onclick="goPage('fin',this)">
+    <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    <span>Finanças</span>
+  </button>
+  <button class="nb" onclick="goPage('ent',this)">
+    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    <span>Entidades</span>
+  </button>
+  <button class="nb" onclick="goPage('mkt',this)">
+    <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    <span>Mercado</span>
+  </button>
+</nav>
+</div>
+
+<script>
+var TASKS_DEFAULT=[
+  {id:1,text:'Licença de Alojamento Local obtida',cat:'AL',done:true,grp:'Concluído'},
+  {id:2,text:'Documentos obrigatórios afixados no alojamento',cat:'AL',done:true,grp:'Concluído'},
+  {id:3,text:'Nome da casa definido — Casa do Freixo',cat:'AL',done:true,grp:'Concluído'},
+  {id:4,text:'Textos PT para Airbnb redigidos (propriedade, anfitrião, área)',cat:'AL',done:true,grp:'Concluído'},
+  {id:5,text:'Seleccionar e editar fotografias finais',cat:'AL',done:false,grp:'Em curso'},
+  {id:6,text:'Traduzir textos para inglês (propriedade, anfitrião, área)',cat:'AL',done:false,grp:'Em curso'},
+  {id:7,text:'Criar conta e anúncio no Airbnb — Casa do Freixo',cat:'Airbnb',done:false,grp:'Esta semana'},
+  {id:8,text:'Configurar comunicação de hóspedes ao AIMA nas plataformas',cat:'AL',done:false,grp:'Esta semana'},
+  {id:9,text:'Activar Modo Estreia (boost automático a anúncios novos)',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:10,text:'Definir preço inicial 15–20% abaixo do mercado para primeiras avaliações',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:11,text:'Activar reserva instantânea (Instant Book)',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:12,text:'Completar 100% do perfil de anfitrião (foto, bio, verificação)',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:13,text:'Responder a todas as mensagens em menos de 1h',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:14,text:'Convidar amigos para primeira estadia — avaliação verificada',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:15,text:'Partilhar anúncio nas redes sociais das Valentas ao lançar',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:16,text:'Pedir avaliação a cada hóspede no dia do check-out',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:17,text:'Após 5 avaliações 4.8+, ajustar preço para valor real de mercado',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:18,text:'Escolher e configurar channel manager (Smoobu recomendado)',cat:'admin',done:false,grp:'Primeiro mês'},
+  {id:19,text:'Falar com contabilista especializado em AL — Cat. F vs B',cat:'admin',done:false,grp:'Primeiro mês'},
+  {id:20,text:'Instalar key box ou fechadura inteligente para check-in autónomo',cat:'obra',done:false,grp:'Primeiro mês'},
+  {id:21,text:'Definir protocolo de limpeza escrito + inventário de roupa de cama',cat:'AL',done:false,grp:'Primeiro mês'},
+  {id:22,text:'Configurar mensagens automáticas (confirmação, check-in, check-out)',cat:'Airbnb',done:false,grp:'Primeiro mês'},
+  {id:23,text:'Definir estratégia de preços por época (alta, baixa, mínimos)',cat:'admin',done:false,grp:'Primeiro mês'},
+  {id:24,text:'Terminar rodapés e pérgola — fotografias definitivas',cat:'obra',done:false,grp:'Primeiro mês'},
+  {id:25,text:'Enviar email a entidades locais (ver aba Entidades)',cat:'admin',done:false,grp:'Primeiro mês'},
+  {id:26,text:'Criar página de reservas diretas no website das Valentas',cat:'admin',done:false,grp:'Médio prazo'},
+  {id:27,text:'Configurar dynamic pricing (PriceLabs ou similar)',cat:'admin',done:false,grp:'Médio prazo'},
+  {id:28,text:'Criar regulamento interno PT + EN para hóspedes',cat:'AL',done:false,grp:'Médio prazo'},
+  {id:29,text:'Criar guia digital do hóspede (restaurantes, passeios, produtores)',cat:'AL',done:false,grp:'Médio prazo'},
+  {id:30,text:'Formalizar estrutura jurídica (Unipessoal)',cat:'admin',done:false,grp:'Admin'},
+  {id:31,text:'Criar calendário editorial mensal Instagram',cat:'admin',done:false,grp:'Admin'},
+  {id:32,text:'Concluir obras do Moinho do Zangalho',cat:'obra',done:false,grp:'Obra'},
+  {id:33,text:'Plantar espécies autóctones — zona ribeira',cat:'jardim',done:false,grp:'Jardim'},
+  {id:34,text:'Avaliar Fairbnb.coop após confirmar Airbnb',cat:'Airbnb',done:false,grp:'Longo prazo'},
+  {id:35,text:'Avaliar Booking.com ou Vrbo conforme desempenho',cat:'Airbnb',done:false,grp:'Longo prazo'},
+];
+
+var ENTITIES=[
+  {id:1,name:'Oficinas do Convento',grp:'cultural',why:'Centro de artes com residências frequentes — artistas e técnicos de fora',email:'oc@oficinasdoconvento.com',phone:'+351 969 852 390',web:'oficinasdoconvento.com'},
+  {id:2,name:'Espaço do Tempo',grp:'cultural',why:'Residências artísticas e produção de espectáculos — necessidade frequente de alojamento',email:'info@oespacodotempo.pt',phone:'+351 266 877 073',web:'oespacodotempo.pt'},
+  {id:3,name:'Alma d\'Arame',grp:'cultural',why:'Companhia de teatro; equipas externas em ensaios e tournées',email:'geral@almadarame.pt',phone:'+351 266 890 262',web:'almadarame.pt'},
+  {id:4,name:'Cineclube de Montemor',grp:'cultural',why:'Ciclos de cinema com convidados e júris externos',email:'',phone:'',web:'Contactar via redes sociais'},
+  {id:5,name:'Oficina da Criança',grp:'cultural',why:'Formadores e animadores externos para workshops e programas',email:'',phone:'',web:'Contactar via Câmara Municipal'},
+  {id:6,name:'Projecto Ruínas',grp:'cultural',why:'Arte e intervenção — residências e trabalho de campo no território',email:'',phone:'',web:'Contactar via Oficinas do Convento'},
+  {id:7,name:'Freixo do Meio',grp:'coop',why:'Projecto referência — investigadores, parceiros e visitantes técnicos externos',email:'visitas@herdadedofreixodomeio.pt',phone:'+351 266 877 136',web:'freixodomeio.pt'},
+  {id:8,name:'Coop. Integral Minga',grp:'coop',why:'Rede de economia solidária — membros de fora que visitam regularmente',email:'',phone:'',web:'Contactar via website'},
+  {id:9,name:'Casa Branca',grp:'coop',why:'Projecto cooperativo com encontros e formações periódicas',email:'',phone:'',web:'Contactar via redes sociais'},
+  {id:10,name:'Quinta das Abelhas',grp:'coop',why:'Projecto vizinho — partilha de público e de formadores',email:'',phone:'',web:'Contacto directo recomendado'},
+  {id:11,name:'Simbio',grp:'coop',why:'Produtor biológico com técnicos e parceiros externos',email:'',phone:'',web:'Contactar via website'},
+  {id:12,name:'Câmara Municipal',grp:'camara',why:'Técnicos e consultores externos para projectos municipais',email:'geral@cm-montemornovo.pt',phone:'+351 266 898 100',web:''},
+  {id:13,name:'Turismo de Montemor',grp:'camara',why:'Parceria institucional e inclusão em rotas de turismo sustentável',email:'turismo@cm-montemornovo.pt',phone:'+351 266 898 103',web:''},
+  {id:14,name:'Junta de Freguesia',grp:'camara',why:'Eventos locais e visitas oficiais ao concelho',email:'geral.jfvilabisposilveiras@gmail.com',phone:'+351 266 070 750',web:''},
+  {id:15,name:'Universidade de Évora',grp:'univ',why:'Investigadores em agrofloresta, ecologia e património — campo frequente na zona',email:'uevora@uevora.pt',phone:'+351 266 740 800',web:'uevora.pt'},
+  {id:16,name:'Oficinas Cerâmica (OCT)',grp:'univ',why:'Residências e workshops com ceramistas vindos de fora',email:'telheiro@oficinasdoconvento.com',phone:'+351 266 887 149',web:''},
+  {id:17,name:'INIAV / inst. agrícolas',grp:'univ',why:'Técnicos em visitas de campo e ensaios no Alentejo',email:'',phone:'',web:'Contactar via website INIAV'},
+  {id:18,name:'Gandum Village',grp:'outros',why:'Overflow de hóspedes em épocas altas — parceria mútua',email:'',phone:'',web:'Contacto directo recomendado'},
+  {id:19,name:'Festivais do concelho',grp:'outros',why:'Participantes, voluntários e artistas que precisam de alojamento próximo',email:'',phone:'',web:'Via Câmara Municipal'},
+  {id:20,name:'Redes agroecologia PT',grp:'outros',why:'Visitas de estudo e encontros periódicos no Alentejo',email:'',phone:'',web:'Contactar via redes e newsletters'},
+];
+
+var GRP_LABEL={cultural:'Culturais e artísticas',coop:'Cooperativas e projectos',camara:'Câmara e serviços públicos',univ:'Universidades e investigação',outros:'Outros projectos'};
+
+var PROJ={
+  2026:{rec:55000,al:40000,exp:12000,prod:3000,custo:32000,ocup:48,note:'Activação plataformas + primeiras experiências consolidadas'},
+  2027:{rec:72000,al:51000,exp:18000,prod:3000,custo:38000,ocup:58,note:'Moinho do Zangalho operacional + pacotes premium'},
+  2028:{rec:90000,al:62000,exp:25000,prod:3000,custo:44000,ocup:68,note:'Posicionamento internacional consolidado'},
+  2029:{rec:108000,al:75000,exp:28000,prod:5000,custo:50000,ocup:75,note:'Viveiro e floresta produtiva em pleno'},
+  2030:{rec:125000,al:85000,exp:32000,prod:8000,custo:56000,ocup:82,note:'Quinta auto-sustentável · modelo regional'}
+};
+
+var MN=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+var S={tasks:null,months:{},entries:[],entStatus:{},sim:{n:12,p:300,e:400},curMonth:new Date(),filterCat:'todas',filterEnt:'todas'};
+var finTabA='rec', projYrA='2026';
+
+
+function load(){
+  try{
+    var d=localStorage.getItem('qv3');
+    if(d){
+      var p=JSON.parse(d);
+      if(p.tasks&&p.tasks.length>0){S.tasks=p.tasks;}
+      S.months=p.months||{};
+      S.entries=p.entries||[];
+      S.entStatus=p.entStatus||{};
+      if(p.sim)S.sim=p.sim;
+    }
+  }catch(e){console.log('storage unavailable');}
+  if(!S.tasks||S.tasks.length===0){S.tasks=TASKS_DEFAULT.slice();}
+}
+
+function save(){
+  try{localStorage.setItem('qv3',JSON.stringify({tasks:S.tasks,months:S.months,entries:S.entries,entStatus:S.entStatus,sim:S.sim}));}
+  catch(e){console.log('save failed');}
+}
+
+function goPage(id,btn){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('p-'+id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='check')renderCheck();
+  if(id==='act')renderAct();
+  if(id==='fin'){renderFin();renderPY(projYrA);}
+  if(id==='ent')renderEnt();
+  if(id==='mkt')initSim();
+}
+
+function hdrDate(){var d=new Date();document.getElementById('hdr-date').innerHTML=d.getDate()+'/'+(d.getMonth()+1)+'<br>'+d.getFullYear();}
+
+/* CHECKLIST */
+var CAT_C={AL:'bv',Airbnb:'bb',admin:'bb',obra:'bt',jardim:'bgr',outro:'ba'};
+function addTask(){
+  var i=document.getElementById('new-task'),c=document.getElementById('new-cat').value,t=i.value.trim();
+  if(!t)return;
+  S.tasks.push({id:Date.now(),text:t,cat:c,done:false,grp:'Personalizado'});
+  i.value='';save();renderCheck();
+}
+function toggleTask(id){var t=S.tasks.find(function(x){return x.id===id;});if(t){t.done=!t.done;save();renderCheck();}}
+function delTask(id){S.tasks=S.tasks.filter(function(x){return x.id!==id;});save();renderCheck();}
+function clearDone(){S.tasks=S.tasks.filter(function(x){return !x.done;});save();renderCheck();}
+function filterCat(btn){S.filterCat=btn.dataset.cat;document.querySelectorAll('.ccat').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');renderCheck();}
+function renderCheck(){
+  var all=S.tasks,vis=S.filterCat==='todas'?all:all.filter(function(t){return t.cat===S.filterCat;});
+  var done=all.filter(function(t){return t.done;}).length;
+  document.getElementById('ck-total').textContent=all.length;
+  document.getElementById('ck-done').textContent=done;
+  document.getElementById('ck-pend').textContent=all.length-done;
+  document.getElementById('prog').style.width=(all.length?Math.round(done/all.length*100):0)+'%';
+  // Group by grp
+  var groups={};
+  vis.forEach(function(t){var g=t.grp||'Outro';if(!groups[g])groups[g]=[];groups[g].push(t);});
+  var h='';
+  Object.keys(groups).forEach(function(g){
+    h+='<div class="group-hdr">'+esc(g)+'</div>';
+    groups[g].forEach(function(t){
+      h+='<div class="ci'+(t.done?' done':'')+'">';
+      h+='<div class="ccb'+(t.done?' chk':'')+'" onclick="toggleTask('+t.id+')"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>';
+      h+='<span class="cit">'+esc(t.text)+'</span>';
+      h+='<span class="badge '+(CAT_C[t.cat]||'ba')+'" style="margin-right:4px;flex-shrink:0;">'+t.cat+'</span>';
+      h+='<button class="cdel" onclick="delTask('+t.id+')">×</button></div>';
+    });
+  });
+  if(!vis.length)h='<p class="empty-state">Sem tarefas nesta categoria</p>';
+  document.getElementById('check-list').innerHTML=h;
+}
+
+/* ACTIVIDADE */
+function changeMonth(d){S.curMonth=new Date(S.curMonth.getFullYear(),S.curMonth.getMonth()+d,1);renderAct();}
+function calcAct(){
+  var n=+document.getElementById('in-noites').value||0,al=+document.getElementById('in-al').value||0;
+  var exp=+document.getElementById('in-exp').value||0,c=+document.getElementById('in-custo').value||0;
+  var h=+document.getElementById('in-hosp').value||0,tot=al+exp,liq=tot-c;
+  document.getElementById('r-total').textContent=fmt(tot);
+  document.getElementById('r-liq').textContent=(liq>=0?'+':'')+fmt(liq);
+  document.getElementById('r-liq').style.color=liq>=0?'var(--v2)':'var(--t2)';
+  document.getElementById('r-ocup').textContent=Math.round(n/30*100)+'%';
+  document.getElementById('r-revpan').textContent=h?fmt(Math.round(tot/h)):'—';
+}
+function saveMonth(){
+  var k=S.curMonth.getFullYear()+'-'+(S.curMonth.getMonth()+1);
+  S.months[k]={noites:+document.getElementById('in-noites').value||0,al:+document.getElementById('in-al').value||0,exp:+document.getElementById('in-exp').value||0,custo:+document.getElementById('in-custo').value||0,hosp:+document.getElementById('in-hosp').value||0};
+  save();renderHist();
+  var b=document.getElementById('savebtn');b.textContent='Guardado ✓';b.style.background='#0F6E56';
+  setTimeout(function(){b.textContent='Guardar mês';b.style.background='var(--v)';},1800);
+}
+function renderAct(){
+  var m=S.curMonth;
+  document.getElementById('month-title').textContent=MN[m.getMonth()]+' '+m.getFullYear();
+  var k=m.getFullYear()+'-'+(m.getMonth()+1),d=S.months[k]||{};
+  document.getElementById('in-noites').value=d.noites||'';
+  document.getElementById('in-al').value=d.al||'';
+  document.getElementById('in-exp').value=d.exp||'';
+  document.getElementById('in-custo').value=d.custo||'';
+  document.getElementById('in-hosp').value=d.hosp||'';
+  calcAct();renderHist();
+}
+function renderHist(){
+  var keys=Object.keys(S.months).sort().reverse(),h='';
+  keys.slice(0,6).forEach(function(k){
+    var d=S.months[k],p=k.split('-'),tot=(d.al||0)+(d.exp||0),liq=tot-(d.custo||0);
+    h+='<div class="card" style="padding:10px 14px;margin-bottom:8px;">';
+    h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">';
+    h+='<span style="font-size:13px;font-weight:600;">'+MN[parseInt(p[1])-1].substr(0,3)+' '+p[0]+'</span>';
+    h+='<span style="font-size:13px;font-weight:600;color:var(--v);">'+fmt(tot)+'</span></div>';
+    h+='<div style="display:flex;gap:10px;font-size:11px;color:var(--txt2);">';
+    h+='<span>'+d.noites+' noites</span><span>'+Math.round((d.noites||0)/30*100)+'% ocup.</span>';
+    h+='<span style="font-weight:600;color:'+(liq>=0?'var(--v)':'var(--t)')+';">Liq: '+(liq>=0?'+':'')+fmt(liq)+'</span></div></div>';
+  });
+  if(!keys.length)h='<p class="empty-state">Sem registos ainda</p>';
+  document.getElementById('hist-list').innerHTML=h;
+}
+
+/* FINANÇAS */
+function finTab(tab,btn){
+  finTabA=tab;
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  document.getElementById('ft-rec').style.display=tab==='rec'?'block':'none';
+  document.getElementById('ft-cus').style.display=tab==='cus'?'block':'none';
+  document.getElementById('ft-proj').style.display=tab==='proj'?'block':'none';
+  if(tab==='proj')renderPY(projYrA);
+}
+function addRec(){
+  var desc=document.getElementById('rec-desc').value.trim(),val=parseFloat(document.getElementById('rec-val').value),cat=document.getElementById('rec-cat').value;
+  if(!desc||!val)return;
+  S.entries.push({id:Date.now(),type:'rec',desc:desc,val:val,cat:cat,date:new Date().toISOString().split('T')[0]});
+  document.getElementById('rec-desc').value='';document.getElementById('rec-val').value='';
+  save();renderFin();
+}
+function addCus(){
+  var desc=document.getElementById('cus-desc').value.trim(),val=parseFloat(document.getElementById('cus-val').value),cat=document.getElementById('cus-cat').value;
+  if(!desc||!val)return;
+  S.entries.push({id:Date.now(),type:'cus',desc:desc,val:val,cat:cat,date:new Date().toISOString().split('T')[0]});
+  document.getElementById('cus-desc').value='';document.getElementById('cus-val').value='';
+  save();renderFin();
+}
+function delEntry(id){S.entries=S.entries.filter(function(e){return e.id!==id;});save();renderFin();}
+function renderFin(){
+  var recs=S.entries.filter(function(e){return e.type==='rec';});
+  var cuss=S.entries.filter(function(e){return e.type==='cus';});
+  var tR=recs.reduce(function(a,e){return a+e.val;},0),tC=cuss.reduce(function(a,e){return a+e.val;},0),liq=tR-tC;
+  var rt=document.getElementById('rec-totals');
+  if(rt)rt.innerHTML='<div class="rtotal"><div class="rl">Total receitas</div><div class="rv" style="color:var(--v);">'+fmt(tR)+'</div></div><div class="rtotal"><div class="rl">Entradas</div><div class="rv">'+recs.length+'</div></div><div class="rtotal"><div class="rl">Resultado</div><div class="rv" style="color:'+(liq>=0?'var(--v)':'var(--t)')+';">'+(liq>=0?'+':'')+fmt(liq)+'</div></div>';
+  var ct=document.getElementById('cus-totals');
+  if(ct)ct.innerHTML='<div class="rtotal"><div class="rl">Total custos</div><div class="rv" style="color:var(--t);">'+fmt(tC)+'</div></div><div class="rtotal"><div class="rl">Entradas</div><div class="rv">'+cuss.length+'</div></div><div class="rtotal"><div class="rl">Resultado</div><div class="rv" style="color:'+(liq>=0?'var(--v)':'var(--t)')+';">'+(liq>=0?'+':'')+fmt(liq)+'</div></div>';
+  var rh='';
+  recs.slice().reverse().forEach(function(e){rh+='<div class="ritem"><div style="width:7px;height:7px;border-radius:50%;background:var(--v);flex-shrink:0;"></div><span class="ritem-desc">'+esc(e.desc)+'</span><span class="ritem-cat bv">'+e.cat+'</span><span class="ritem-val" style="color:var(--v);">+'+fmt(e.val)+'</span><button class="ritem-del" onclick="delEntry('+e.id+')">×</button></div>';});
+  if(!recs.length)rh='<p class="empty-state">Adiciona a tua primeira receita</p>';
+  var rl=document.getElementById('rec-list');if(rl)rl.innerHTML=rh;
+  var ch='';
+  cuss.slice().reverse().forEach(function(e){ch+='<div class="ritem"><div style="width:7px;height:7px;border-radius:50%;background:var(--t);flex-shrink:0;"></div><span class="ritem-desc">'+esc(e.desc)+'</span><span class="ritem-cat bt">'+e.cat+'</span><span class="ritem-val" style="color:var(--t);">-'+fmt(e.val)+'</span><button class="ritem-del" onclick="delEntry('+e.id+')">×</button></div>';});
+  if(!cuss.length)ch='<p class="empty-state">Adiciona o teu primeiro custo</p>';
+  var cl=document.getElementById('cus-list');if(cl)cl.innerHTML=ch;
+}
+function showPY(btn){projYrA=btn.dataset.yr;document.querySelectorAll('.ptab').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');renderPY(projYrA);}
+function renderPY(yr){
+  var d=PROJ[yr];if(!d)return;
+  var liq=d.rec-d.custo,max=125000;
+  var h='<div class="proj-summary"><div class="ps"><div class="pl">Receita total</div><div class="pv" style="color:var(--v);">'+fmtk(d.rec)+'</div></div><div class="ps"><div class="pl">Resultado líquido</div><div class="pv" style="color:'+(liq>=0?'var(--v)':'var(--t)')+';">'+(liq>=0?'+':'')+fmtk(liq)+'</div></div><div class="ps"><div class="pl">Custos estimados</div><div class="pv" style="color:var(--t);">'+fmtk(d.custo)+'</div></div><div class="ps"><div class="pl">Ocupação</div><div class="pv">'+d.ocup+'%</div></div></div>';
+  h+='<div class="card" style="padding:12px 14px;margin-bottom:10px;">';
+  h+=pbar('Alojamento',d.al,max,'#1D9E75');h+=pbar('Experiências',d.exp,max,'#EF9F27');
+  h+=pbar('Produtos',d.prod,max,'#D85A30');h+=pbar('Custos',d.custo,max,'#888780');
+  h+='</div><div class="card cv"><h3>'+yr+'</h3><p>'+d.note+'</p></div>';
+  document.getElementById('proj-content').innerHTML=h;
+}
+function pbar(l,v,m,c){return '<div class="pr"><span class="pr-label">'+l+'</span><div class="pr-bw"><div class="pr-b" style="width:'+Math.round(v/m*100)+'%;background:'+c+';"></div></div><span class="pr-val" style="color:'+c+';">'+fmtk(v)+'</span></div>';}
+
+/* ENTIDADES */
+var STATUS_OPTS=['Não contactado','Email enviado','Reunião marcada','Acordo activo'];
+var STATUS_COLORS=['#a0a09a','#BA7517','#185FA5','#1D9E75'];
+function filterEnt(btn){S.filterEnt=btn.dataset.grp;document.querySelectorAll('.ef-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');renderEnt();}
+function setEntStatus(id,val){S.entStatus[id]=parseInt(val);save();renderEnt();}
+function renderEnt(){
+  var vis=S.filterEnt==='todas'?ENTITIES:ENTITIES.filter(function(e){return e.grp===S.filterEnt;});
+  var h='';
+  vis.forEach(function(e){
+    var st=S.entStatus[e.id]||0;
+    var sc=STATUS_COLORS[st];
+    h+='<div class="ent-card">';
+    h+='<div class="ent-top"><div><div class="ent-name">'+esc(e.name)+'</div><div class="ent-group">'+esc(GRP_LABEL[e.grp]||e.grp)+'</div></div>';
+    h+='<div style="width:10px;height:10px;border-radius:50%;background:'+sc+';flex-shrink:0;margin-top:4px;"></div></div>';
+    h+='<div class="ent-why">'+esc(e.why)+'</div>';
+    h+='<div class="ent-contacts">';
+    if(e.email)h+='<div class="ent-contact-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg><a href="mailto:'+e.email+'">'+e.email+'</a></div>';
+    if(e.phone)h+='<div class="ent-contact-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:'+e.phone.replace(/\s/g,'')+'">'+e.phone+'</a></div>';
+    if(e.web&&e.web.indexOf(' ')===-1)h+='<div class="ent-contact-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span style="color:var(--txt2);">'+e.web+'</span></div>';
+    else if(e.web)h+='<div class="ent-contact-item"><span style="color:var(--txt3);font-style:italic;">'+e.web+'</span></div>';
+    h+='</div>';
+    h+='<div class="ent-status"><label>Estado:</label><select onchange="setEntStatus('+e.id+',this.value)">';
+    STATUS_OPTS.forEach(function(o,i){h+='<option value="'+i+'"'+(st===i?' selected':'')+'>'+o+'</option>';});
+    h+='</select></div></div>';
+  });
+  document.getElementById('ent-list').innerHTML=h;
+}
+
+/* SIMULADOR */
+function initSim(){
+  var sls=document.querySelectorAll('#p-mkt input[type=range]');
+  sls[0].value=S.sim.n;sls[1].value=S.sim.p;sls[2].value=S.sim.e;updSim();
+}
+function simCalc(k,v){S.sim[k]=parseInt(v);save();updSim();}
+function updSim(){
+  document.getElementById('sl-n-v').textContent=S.sim.n;
+  document.getElementById('sl-p-v').textContent=S.sim.p+' €';
+  document.getElementById('sl-e-v').textContent=S.sim.e+' €';
+  var al=S.sim.n*S.sim.p,tot=al+S.sim.e;
+  document.getElementById('s-al').textContent=fmt(al);
+  document.getElementById('s-exp').textContent=fmt(S.sim.e);
+  document.getElementById('s-tot').textContent=fmt(tot);
+  document.getElementById('s-ocp').textContent=Math.round(S.sim.n/30*100)+'%';
+  document.getElementById('s-ano').textContent=fmt(tot*12);
+}
+function refreshMkt(){
+  var b=document.getElementById('mkt-btn');b.textContent='A actualizar...';
+  setTimeout(function(){document.getElementById('mkt-date').textContent=new Date().toLocaleDateString('pt-PT');b.textContent='↻ Actualizar';},900);
+}
+
+function fmt(n){return Math.round(n).toLocaleString('pt-PT')+'€';}
+function fmtk(n){return n>=1000?(n/1000).toFixed(1).replace('.0','')+'k€':Math.round(n)+'€';}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* INIT */
+load();
+hdrDate();
+document.getElementById('mkt-date').textContent=new Date().toLocaleDateString('pt-PT');
+renderCheck();renderFin();renderEnt();initSim();renderPY('2026');
+</script>
+</body>
+</html>
