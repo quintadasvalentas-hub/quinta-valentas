@@ -511,11 +511,11 @@ var ENTS = [
   {id:10,name:'Gandum Village',grp:'outros',why:'Overflow em épocas altas — parceria mútua',email:'',phone:'',web:'Contacto directo'}
 ];
 
-var D = {tasks:null,months:{},entries:[],entSt:{},customEnts:[],sim:{n:12,p:300,e:400},mon:new Date(),cat:'todas',ef:'todas'};
+var D = {tasks:null,months:{},entries:[],entSt:{},customEnts:[],entEdits:{},sim:{n:12,p:300,e:400},mon:new Date(),cat:'todas',ef:'todas'};
 var curPY = '2026';
 var curFT = 'r';
 
-function save() { try { localStorage.setItem('qv4', JSON.stringify({tasks:D.tasks,months:D.months,entries:D.entries,entSt:D.entSt,customEnts:D.customEnts,sim:D.sim})); } catch(e) {} }
+function save() { try { localStorage.setItem('qv4', JSON.stringify({tasks:D.tasks,months:D.months,entries:D.entries,entSt:D.entSt,customEnts:D.customEnts,entEdits:D.entEdits,sim:D.sim})); } catch(e) {} }
 function load() {
   try {
     var raw = localStorage.getItem('qv4');
@@ -526,6 +526,7 @@ function load() {
       D.entries = p.entries || [];
       D.entSt = p.entSt || {};
       D.customEnts = p.customEnts || [];
+      D.entEdits = p.entEdits || {};
       if (p.sim) D.sim = p.sim;
     }
   } catch(e) {}
@@ -742,6 +743,66 @@ function drawPY(yr) {
 function pb(l,v,m,c) { return '<div class="pr"><span class="prl">' + l + '</span><div class="prw"><div class="prb" style="width:' + Math.round(v/m*100) + '%;background:' + c + ';"></div></div><span class="prv" style="color:' + c + ';">' + fk(v) + '</span></div>'; }
 
 // ---- ENTITIES ----
+
+function openEntMo(id) {
+  // Find entity - check customEnts first, then built-in ENTS
+  var e = D.customEnts.find(function(x){ return x.id===id; });
+  var isCustom = !!e;
+  if (!e) e = ENTS.find(function(x){ return x.id===id; });
+  if (!e) return;
+  // Apply any edits for built-in entities
+  var edits = D.entEdits[id] || {};
+  document.getElementById('em-id').value = id;
+  document.getElementById('em-custom').value = isCustom ? '1' : '0';
+  document.getElementById('em-name').value = edits.name || e.name || '';
+  document.getElementById('em-grp').value = edits.grp || e.grp || 'outros';
+  document.getElementById('em-why').value = edits.why || e.why || '';
+  document.getElementById('em-email').value = edits.email || e.email || '';
+  document.getElementById('em-phone').value = edits.phone || e.phone || '';
+  document.getElementById('em-web').value = edits.web || e.web || '';
+  // Show delete button only for custom entities
+  document.getElementById('em-del-btn').style.display = isCustom ? 'block' : 'none';
+  document.getElementById('ent-modal').classList.add('on');
+  setTimeout(function(){ document.getElementById('em-name').focus(); }, 100);
+}
+
+function closeEntMo(e) {
+  if (e && e.target !== document.getElementById('ent-modal')) return;
+  document.getElementById('ent-modal').classList.remove('on');
+}
+
+function saveEntMo() {
+  var id = document.getElementById('em-id').value;
+  var isCustom = document.getElementById('em-custom').value === '1';
+  var vals = {
+    name: document.getElementById('em-name').value.trim(),
+    grp: document.getElementById('em-grp').value,
+    why: document.getElementById('em-why').value.trim(),
+    email: document.getElementById('em-email').value.trim(),
+    phone: document.getElementById('em-phone').value.trim(),
+    web: document.getElementById('em-web').value.trim()
+  };
+  if (isCustom) {
+    var e = D.customEnts.find(function(x){ return x.id===id; });
+    if (e) Object.assign(e, vals);
+  } else {
+    // Store edits for built-in entity
+    D.entEdits[id] = vals;
+  }
+  save();
+  document.getElementById('ent-modal').classList.remove('on');
+  drawEnts();
+}
+
+function delEntMo() {
+  var id = document.getElementById('em-id').value;
+  D.customEnts = D.customEnts.filter(function(e){ return e.id !== id; });
+  delete D.entSt[id];
+  save();
+  document.getElementById('ent-modal').classList.remove('on');
+  drawEnts();
+}
+
 function addEnt() {
   var name = document.getElementById('en-name').value.trim();
   if (!name) return;
@@ -783,18 +844,25 @@ function drawEnts() {
   var h = '';
   vis.forEach(function(e) {
     var st = D.entSt[e.id] || 0;
+    // Apply any edits for built-in entities
+    var edits = D.entEdits[e.id] || {};
+    var name = edits.name || e.name;
+    var grp = edits.grp || e.grp;
+    var why = edits.why || e.why;
+    var email = edits.email !== undefined ? edits.email : e.email;
+    var phone = edits.phone !== undefined ? edits.phone : e.phone;
+    var web = edits.web !== undefined ? edits.web : e.web;
     h += '<div class="ec"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px;">';
-    h += '<div><div class="en">' + esc(e.name) + '</div><div class="eg">' + esc(GLBL[e.grp]||e.grp) + '</div></div>';
-    h += '<div style="width:10px;height:10px;border-radius:50%;background:' + SCOL[st] + ';flex-shrink:0;margin-top:4px;"></div></div>';
-    h += '<div class="ew">' + esc(e.why) + '</div>';
-    if (e.email) h += '<div class="ei"><a href="mailto:' + e.email + '">' + e.email + '</a></div>';
-    if (e.phone) h += '<div class="ei"><a href="tel:' + e.phone.replace(/\s/g,'') + '">' + e.phone + '</a></div>';
-    if (e.web) h += '<div class="ei">' + esc(e.web) + '</div>';
-    h += '<div class="es"><label>Estado:</label><select onchange="setES(' + e.id + ',this.value)">';
+    h += '<div style="flex:1;cursor:pointer;" onclick="openEntMo(' + (typeof e.id === 'string' ? "\'" + e.id + "\'" : e.id) + ')"><div class="en">' + esc(name) + '</div><div class="eg">' + esc(GLBL[grp]||grp) + '</div></div>';
+    h += '<div style="display:flex;align-items:center;gap:6px;"><div style="width:10px;height:10px;border-radius:50%;background:' + SCOL[st] + ';flex-shrink:0;"></div>';
+    h += '<button onclick="openEntMo(' + (typeof e.id === 'string' ? "\'" + e.id + "\'" : e.id) + ')" style="background:none;border:none;color:var(--txt3);cursor:pointer;font-size:16px;padding:4px;line-height:1;">&#9998;</button></div></div>';
+    h += '<div class="ew">' + esc(why) + '</div>';
+    if (email) h += '<div class="ei"><a href="mailto:' + email + '">' + email + '</a></div>';
+    if (phone) h += '<div class="ei"><a href="tel:' + phone.replace(/\s/g,'') + '">' + phone + '</a></div>';
+    if (web) h += '<div class="ei">' + esc(web) + '</div>';
+    h += '<div class="es"><label>Estado:</label><select onchange="setES(' + (typeof e.id === 'string' ? "\'" + e.id + "\'" : e.id) + ',this.value)">';
     SOPT.forEach(function(o,i){ h += '<option value="' + i + '"' + (st===i?' selected':'') + '>' + o + '</option>'; });
-    h += '</select>';
-    if (e.custom) h += '<button onclick="delEnt(\'' + e.id + '\')" style="background:none;border:none;color:var(--txt3);cursor:pointer;font-size:18px;padding:4px;">&#215;</button>';
-    h += '</div></div>';
+    h += '</select></div></div>';
   });
   document.getElementById('elist').innerHTML = h || '<p class="empty">Sem entidades</p>';
 }
@@ -874,6 +942,7 @@ function exportData() {
     entries: D.entries,
     entSt: D.entSt,
     customEnts: D.customEnts,
+    entEdits: D.entEdits,
     sim: D.sim,
     exported: new Date().toISOString()
   };
@@ -901,6 +970,7 @@ function importData(event) {
       if (data.entries) D.entries = data.entries;
       if (data.entSt) D.entSt = data.entSt;
       if (data.customEnts) D.customEnts = data.customEnts;
+      if (data.entEdits) D.entEdits = data.entEdits;
       if (data.sim) D.sim = data.sim;
       save();
       drawTasks(); drawFin(); drawEnts(); drawSim();
