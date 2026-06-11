@@ -496,32 +496,32 @@ input[type=range]{width:100%;height:4px;accent-color:var(--v);cursor:pointer;}
 </div>
 </div><!-- /pages -->
 
-<nav class="bnav">
-  <button class="nb active" onclick="goPage('home',this)">
+<nav class="bnav" id="bnav">
+  <button class="nb active" data-page="home">
     <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     <span>Início</span>
   </button>
-  <button class="nb" onclick="goPage('check',this)">
+  <button class="nb" data-page="check">
     <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
     <span>Tarefas</span>
   </button>
-  <button class="nb" onclick="goPage('act',this)">
+  <button class="nb" data-page="act">
     <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
     <span>Actividade</span>
   </button>
-  <button class="nb" onclick="goPage('fin',this)">
+  <button class="nb" data-page="fin">
     <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
     <span>Finanças</span>
   </button>
-  <button class="nb" onclick="goPage('ent',this)">
+  <button class="nb" data-page="ent">
     <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
     <span>Entidades</span>
   </button>
-  <button class="nb" onclick="goPage('mkt',this)">
+  <button class="nb" data-page="mkt">
     <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
     <span>Mercado</span>
   </button>
-  <button class="nb" onclick="goPage('ia',this)">
+  <button class="nb" data-page="ia">
     <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 8v4l3 3"/><circle cx="18" cy="6" r="3" fill="currentColor" opacity="0.4"/><path d="M18 3v6M15 6h6"/></svg>
     <span>IA</span>
   </button>
@@ -625,19 +625,28 @@ function save(){
   catch(e){console.log('save failed');}
 }
 
-function goPage(id,btn){
+function goPage(id){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('active');});
   var pg=document.getElementById('p-'+id);
-  if(pg){pg.classList.add('active');}else{console.log('page not found: p-'+id);}
-  btn.classList.add('active');
-  if(id==='check')renderCheck();
-  if(id==='act')renderAct();
-  if(id==='fin'){renderFin();renderPY(projYrA);}
-  if(id==='ent')renderEnt();
-  if(id==='mkt')initSim();
-  if(id==='ia'){renderIAContext();var k=loadApiKey();if(k){document.getElementById('api-key-input').value='sk-ant-••••••••';document.getElementById('key-status').textContent='✓ Chave guardada';document.getElementById('key-status').style.color='var(--v)';}}
+  if(pg){pg.classList.add('active');}
+  var btn=document.querySelector('[data-page="'+id+'"]');
+  if(btn){btn.classList.add('active');}
+  if(id==='check')try{renderCheck();}catch(e){}
+  if(id==='act')try{renderAct();}catch(e){}
+  if(id==='fin'){try{renderFin();}catch(e){}try{renderPY(projYrA);}catch(e){}}
+  if(id==='ent')try{renderEnt();}catch(e){}
+  if(id==='mkt')try{initSim();}catch(e){}
+  if(id==='ia'){try{renderIAContext();}catch(e){}var k=loadApiKey();if(k){document.getElementById('api-key-input').value='sk-ant-••••••••';document.getElementById('key-status').textContent='✓ Chave guardada';document.getElementById('key-status').style.color='var(--v)';}}
 }
+
+// Event delegation for nav - works on all Android Chrome versions
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('bnav').addEventListener('click', function(e){
+    var btn = e.target.closest('[data-page]');
+    if(btn){ goPage(btn.dataset.page); }
+  });
+});
 
 function hdrDate(){var d=new Date();document.getElementById('hdr-date').innerHTML=d.getDate()+'/'+(d.getMonth()+1)+'<br>'+d.getFullYear();}
 
