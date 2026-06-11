@@ -9,7 +9,6 @@
 <title>Quinta das Valentas</title>
 <style>
 
-
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 :root{
   --v:#1D9E75;--v1:#E1F5EE;--v2:#085041;
@@ -22,18 +21,18 @@
   :root{--bg:#111110;--card:#1c1c1a;--border:#2e2e2a;--txt:#f0f0ec;--txt2:#9a9a94;--txt3:#606060;
   --v1:#0a2e22;--v2:#9FE1CB;--t1:#2e1208;--t2:#F0997B;--a1:#2a1e08;--a2:#FAC775;}
 }
-html,body{height:100%;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:16px;overscroll-behavior:none;overflow:hidden;}
-.app{display:flex;flex-direction:column;height:100%;height:100dvh;max-width:440px;margin:0 auto;position:relative;}
+html,body{height:100%;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:16px;overscroll-behavior:none;}
+.app{display:flex;flex-direction:column;height:100vh;max-width:440px;margin:0 auto;}
 .header{height:56px;display:flex;align-items:center;padding:0 16px;gap:10px;background:var(--bg);border-bottom:0.5px solid var(--border);flex-shrink:0;}
 .logo{width:30px;height:30px;border-radius:50%;background:var(--v1);display:flex;align-items:center;justify-content:center;}
 .logo svg{width:16px;height:16px;stroke:var(--v);fill:none;stroke-width:2;stroke-linecap:round;}
 .header-text h1{font-size:15px;font-weight:600;color:var(--txt);}
 .header-text p{font-size:11px;color:var(--txt2);}
 .hdr-r{margin-left:auto;font-size:11px;color:var(--txt3);text-align:right;line-height:1.4;}
-.pages{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding-bottom:72px;}
-.page{display:none !important;padding:16px 16px 24px;}
-.page.active{display:block !important;}
-.bnav{height:64px;display:flex;background:var(--card);border-top:0.5px solid var(--border);padding-bottom:env(safe-area-inset-bottom);overflow-x:auto;position:fixed;bottom:0;left:0;right:0;max-width:440px;margin:0 auto;z-index:100;}
+.pages{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
+.page{display:none;padding:16px 16px 24px;}
+.page.active{display:block;}
+.bnav{height:64px;display:flex;background:var(--card);border-top:0.5px solid var(--border);flex-shrink:0;padding-bottom:env(safe-area-inset-bottom);overflow-x:auto;}
 .nb{flex:1;min-width:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;border:none;background:none;color:var(--txt3);padding:8px 2px;transition:color 0.15s;}
 .nb svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
 .nb span{font-size:9px;font-weight:500;}
@@ -146,34 +145,6 @@ input[type=range]{width:100%;height:4px;accent-color:var(--v);cursor:pointer;}
 .sv{font-size:15px;font-weight:600;color:var(--txt);}
 .stot{font-size:20px;font-weight:700;color:var(--v);}
 .sfooter{margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border);font-size:11px;color:var(--txt2);text-align:center;}
-
-/* IA PAGE */
-.ia-suggestion{background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px;}
-.ia-dot{width:8px;height:8px;border-radius:50%;background:var(--v);flex-shrink:0;margin-top:5px;}
-.ia-text{flex:1;font-size:13px;color:var(--txt);line-height:1.5;}
-.ia-cat{font-size:10px;padding:1px 7px;border-radius:10px;font-weight:600;margin-top:4px;display:inline-block;}
-.ia-add-btn{background:none;border:0.5px solid var(--v);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--v);cursor:pointer;margin-top:6px;font-weight:600;}
-.ia-loading{text-align:center;padding:24px;color:var(--txt2);font-size:13px;}
-.ia-loading svg{animation:spin 1s linear infinite;display:block;margin:0 auto 10px;}
-@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-
-
-.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:100;display:none;align-items:flex-end;}
-.modal-overlay.open{display:flex;}
-.modal{background:var(--card);border-radius:20px 20px 0 0;padding:20px 16px 32px;width:100%;max-width:440px;margin:0 auto;}
-.modal h3{font-size:15px;font-weight:600;margin-bottom:16px;color:var(--txt);}
-.modal-field{margin-bottom:12px;}
-.modal-field label{font-size:11px;font-weight:600;color:var(--txt2);letter-spacing:0.06em;text-transform:uppercase;display:block;margin-bottom:5px;}
-.modal-field input,.modal-field select,.modal-field textarea{width:100%;background:var(--bg);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--txt);outline:none;font-family:inherit;}
-.modal-field input:focus,.modal-field select:focus,.modal-field textarea:focus{border-color:var(--v);}
-.modal-field textarea{resize:none;height:70px;}
-.modal-btns{display:flex;gap:8px;margin-top:16px;}
-.modal-btns button{flex:1;padding:12px;border-radius:12px;border:none;font-size:14px;font-weight:600;cursor:pointer;}
-.modal-save{background:var(--v);color:#fff;}
-.modal-cancel{background:var(--bg);color:var(--txt2);border:0.5px solid var(--border) !important;}
-.modal-delete{background:var(--t1);color:var(--t2);border:0.5px solid var(--t1) !important;flex:0.5 !important;}
-.ci-edit-btn{background:none;border:none;color:var(--txt3);cursor:pointer;padding:4px;font-size:14px;flex-shrink:0;}
-
 /* ENTIDADES */
 .ent-filter{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;}
 .ef-btn{font-size:11px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--border);background:var(--card);color:var(--txt2);cursor:pointer;white-space:nowrap;font-weight:500;flex-shrink:0;}
@@ -193,317 +164,215 @@ input[type=range]{width:100%;height:4px;accent-color:var(--v);cursor:pointer;}
 .sectgap{margin-top:20px;}
 .empty-state{text-align:center;color:var(--txt3);padding:24px;font-size:13px;}
 
-
-/* HASH NAV - most reliable on Android */
-.page { display: none !important; padding: 16px 16px 24px; }
-.nb { color: var(--txt3); }
-
-/* Show page based on hash */
-:root:not([data-page]) .page#p-home,
-body[data-page="home"] .page#p-home,
-body[data-page="check"] .page#p-check,
-body[data-page="act"] .page#p-act,
-body[data-page="fin"] .page#p-fin,
-body[data-page="ent"] .page#p-ent,
-body[data-page="mkt"] .page#p-mkt,
-body[data-page="ia"] .page#p-ia
-{ display: block !important; }
-
-/* Active nav button */
-body[data-page="home"] [data-page="home"],
-body[data-page="check"] [data-page="check"],
-body[data-page="act"] [data-page="act"],
-body[data-page="fin"] [data-page="fin"],
-body[data-page="ent"] [data-page="ent"],
-body[data-page="mkt"] [data-page="mkt"],
-body[data-page="ia"] [data-page="ia"]
-{ color: var(--v) !important; }
+/* EDIT MODAL */
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:100;display:none;align-items:flex-end;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--card);border-radius:20px 20px 0 0;padding:20px 16px 32px;width:100%;max-width:440px;margin:0 auto;}
+.modal h3{font-size:15px;font-weight:600;margin-bottom:16px;color:var(--txt);}
+.modal-field{margin-bottom:12px;}
+.modal-field label{font-size:11px;font-weight:600;color:var(--txt2);letter-spacing:0.06em;text-transform:uppercase;display:block;margin-bottom:5px;}
+.modal-field input,.modal-field select,.modal-field textarea{width:100%;background:var(--bg);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--txt);outline:none;font-family:inherit;}
+.modal-field textarea{resize:none;height:70px;}
+.modal-btns{display:flex;gap:8px;margin-top:16px;}
+.modal-btns button{flex:1;padding:12px;border-radius:12px;border:none;font-size:14px;font-weight:600;cursor:pointer;}
+.modal-save{background:var(--v);color:#fff;}
+.modal-cancel{background:var(--bg);color:var(--txt2);}
+.modal-delete{background:var(--t1);color:var(--t2);flex:0.5 !important;}
+.ci-edit-btn{background:none;border:none;color:var(--txt3);cursor:pointer;padding:4px;font-size:14px;flex-shrink:0;}
+/* IA PAGE */
+.ia-suggestion{background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;}
+.ia-text{font-size:13px;color:var(--txt);line-height:1.5;}
+.ia-cat{font-size:10px;padding:1px 7px;border-radius:10px;font-weight:600;margin-top:4px;display:inline-block;}
+.ia-add-btn{background:none;border:0.5px solid var(--v);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--v);cursor:pointer;margin-top:6px;font-weight:600;}
+.ia-loading{text-align:center;padding:24px;color:var(--txt2);font-size:13px;}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
 </style>
 </head>
 <body>
-<div style="display:flex;flex-direction:column;height:100vh;max-width:440px;margin:0 auto;background:var(--bg);">
+<div class="app">
 
 <div class="header">
-  <div class="logo">
-    <svg viewBox="0 0 24 24"><path d="M12 2C6 8 4 14 12 22c8-8 6-14 0-20z"/><line x1="12" y1="22" x2="12" y2="10"/></svg>
-  </div>
-  <div class="header-text">
-    <h1>Quinta das Valentas</h1>
-    <p>Montemor-o-Novo · Alentejo</p>
-  </div>
+  <div class="logo"><svg viewBox="0 0 24 24"><path d="M12 2C6 8 4 14 12 22c8-8 6-14 0-20z"/><line x1="12" y1="22" x2="12" y2="10"/></svg></div>
+  <div class="header-text"><h1>Quinta das Valentas</h1><p>Montemor-o-Novo · Alentejo</p></div>
   <div class="hdr-r" id="hdr-date"></div>
 </div>
 
-<div id="pages-wrap" style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;">
-<div id="p-home" style="display:none;padding:16px 16px 24px;"><div class="metrics">
-    <div class="metric"><div class="lbl">Área</div><div class="val">8,5 ha</div><div class="sub">600m ribeira</div></div>
-    <div class="metric"><div class="lbl">AL</div><div class="val">Casa Freixo</div><div class="sub">Licença obtida ✓</div></div>
-    <div class="metric"><div class="lbl">Meta 2025</div><div class="val">38k€</div><div class="sub">receita anual</div></div>
-    <div class="metric"><div class="lbl">Ocupação alvo</div><div class="val">35%</div><div class="sub">1º ano</div></div>
-  </div>
-  <div class="sl">estado actual — casa do freixo</div>
-  <div class="card" style="padding:8px 14px;">
-    <div class="lr">
-      <div class="li" style="background:var(--v1);color:var(--v2);">
-        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <div><h4>Licença AL obtida</h4><p>Documentos afixados · Nome definido</p></div>
-      <span class="badge bv mla">Feito</span>
-    </div>
-    <div class="lr">
-      <div class="li" style="background:var(--v1);color:var(--v2);">
-        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <div><h4>Textos PT para Airbnb</h4><p>Propriedade, anfitrião, área</p></div>
-      <span class="badge bv mla">Feito</span>
-    </div>
-    <div class="lr">
-      <div class="li" style="background:var(--a1);color:var(--a2);">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      </div>
-      <div><h4>Fotografias e tradução EN</h4><p>Em edição · Seleccionar finais</p></div>
-      <span class="badge ba mla">Em curso</span>
-    </div>
-    <div class="lr">
-      <div class="li" style="background:var(--t1);color:var(--t2);">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      </div>
-      <div><h4>Conta Airbnb + anúncio</h4><p>Configurar esta semana</p></div>
-      <span class="badge bt mla">A fazer</span>
-    </div>
-  </div>
-  <div class="card cv sectgap">
-    <h3>Missão</h3>
-    <p>Turismo lento, regeneração ecológica do Rio Almansor e experiências imersivas em 8,5 hectares no Alentejo.</p>
-  </div>
-  <div class="card ca">
-    <h3>Como instalar no Android</h3>
-    <p><strong>1.</strong> Partilha este ficheiro para o teu Google Drive<br>
-    <strong>2.</strong> No Drive, abre o ficheiro → toca nos ⋮ → "Abrir com" → Chrome<br>
-    <strong>3.</strong> No Chrome, toca nos ⋮ → "Adicionar ao ecrã principal"<br>
-    <strong>Ou mais fácil:</strong> envia o ficheiro por email para ti própria e abre no Gmail → Chrome.</p>
+<div class="pages">
+<div class="page active" id="p-home">
+<div class="metrics">
+  <div class="metric"><div class="lbl">Área</div><div class="val">8,5 ha</div><div class="sub">600m ribeira</div></div>
+  <div class="metric"><div class="lbl">AL</div><div class="val">Casa Freixo</div><div class="sub">Licença obtida ✓</div></div>
+  <div class="metric"><div class="lbl">Meta 2025</div><div class="val">38k€</div><div class="sub">receita anual</div></div>
+  <div class="metric"><div class="lbl">Ocupação alvo</div><div class="val">35%</div><div class="sub">1º ano</div></div>
+</div>
+<div class="sl">estado actual</div>
+<div class="card" style="padding:8px 14px;">
+  <div class="lr"><div class="li" style="background:var(--v1);color:var(--v2);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div><h4>Licença AL obtida</h4><p>Casa do Freixo</p></div><span class="badge bv mla">Feito</span></div>
+  <div class="lr"><div class="li" style="background:var(--v1);color:var(--v2);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div><h4>Textos PT para Airbnb</h4><p>Escritos</p></div><span class="badge bv mla">Feito</span></div>
+  <div class="lr"><div class="li" style="background:var(--a1);color:var(--a2);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><h4>Fotografias e tradução EN</h4><p>Em edição</p></div><span class="badge ba mla">Em curso</span></div>
+  <div class="lr"><div class="li" style="background:var(--t1);color:var(--t2);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div><h4>Conta Airbnb + anúncio</h4><p>Configurar esta semana</p></div><span class="badge bt mla">A fazer</span></div>
+</div>
+<div class="card cv sectgap"><h3>Missão</h3><p>Turismo lento, regeneração ecológica do Rio Almansor e experiências imersivas em 8,5 hectares no Alentejo.</p></div>
+</div>
+<div class="page" id="p-check">
+<div class="cstats">
+  <div class="cstat"><div class="n" id="ck-total">0</div><div class="l">total</div></div>
+  <div class="cstat"><div class="n" id="ck-done" style="color:var(--v);">0</div><div class="l">feitas</div></div>
+  <div class="cstat"><div class="n" id="ck-pend" style="color:var(--t);">0</div><div class="l">pendentes</div></div>
+</div>
+<div class="prog"><div class="progf" id="prog" style="width:0%"></div></div>
+<div class="ccats">
+  <button class="ccat active" data-cat="todas" onclick="filterCat(this)">Todas</button>
+  <button class="ccat" data-cat="AL" onclick="filterCat(this)">AL</button>
+  <button class="ccat" data-cat="Airbnb" onclick="filterCat(this)">Airbnb</button>
+  <button class="ccat" data-cat="admin" onclick="filterCat(this)">Admin</button>
+  <button class="ccat" data-cat="obra" onclick="filterCat(this)">Obra</button>
+  <button class="ccat" data-cat="jardim" onclick="filterCat(this)">Jardim</button>
+  <button class="ccat" data-cat="outro" onclick="filterCat(this)">Outro</button>
+</div>
+<div class="cadd">
+  <input type="text" id="new-task" placeholder="Nova tarefa..." onkeydown="if(event.key==='Enter')addTask()">
+  <select id="new-cat"><option value="AL">AL</option><option value="Airbnb">Airbnb</option><option value="admin">Admin</option><option value="obra">Obra</option><option value="jardim">Jardim</option><option value="outro">Outro</option></select>
+  <button onclick="addTask()">+</button>
+</div>
+<div id="check-list"></div>
+<button onclick="clearDone()" style="width:100%;margin-top:8px;background:none;border:0.5px solid var(--border);border-radius:10px;padding:10px;font-size:13px;color:var(--txt2);cursor:pointer;">Limpar concluídas</button>
+</div>
+<div class="page" id="p-act">
+<div class="mnav">
+  <button onclick="changeMonth(-1)">&#8592;</button>
+  <h2 id="month-title">Junho 2025</h2>
+  <button onclick="changeMonth(1)">&#8594;</button>
+</div>
+<div class="sl">registar actividade</div>
+<div class="card" style="padding:10px 14px;">
+  <div class="ir"><label>Noites ocupadas</label><input type="number" id="in-noites" placeholder="0" min="0" max="31" oninput="calcAct()"></div>
+  <div class="ir"><label>Receita alojamento (€)</label><input type="number" id="in-al" placeholder="0" oninput="calcAct()"></div>
+  <div class="ir"><label>Receita experiências (€)</label><input type="number" id="in-exp" placeholder="0" oninput="calcAct()"></div>
+  <div class="ir"><label>Custos totais (€)</label><input type="number" id="in-custo" placeholder="0" oninput="calcAct()"></div>
+  <div class="ir" style="border:none;"><label>Nº hóspedes</label><input type="number" id="in-hosp" placeholder="0" oninput="calcAct()"></div>
+</div>
+<button class="savebtn" id="savebtn" onclick="saveMonth()">Guardar mês</button>
+<div class="ares"><h3>resumo do mês</h3>
+  <div class="agrid">
+    <div class="ai"><div class="l">Receita total</div><div class="v" id="r-total">—</div></div>
+    <div class="ai"><div class="l">Resultado líquido</div><div class="v" id="r-liq">—</div></div>
+    <div class="ai"><div class="l">Taxa de ocupação</div><div class="v" id="r-ocup">—</div></div>
+    <div class="ai"><div class="l">Receita/hóspede</div><div class="v" id="r-revpan">—</div></div>
   </div>
 </div>
-
-<!-- CHECKLIST --></div></div>
-<div id="p-check" style="display:none;padding:16px 16px 24px;"><div class="cstats">
-    <div class="cstat"><div class="n" id="ck-total">0</div><div class="l">total</div></div>
-    <div class="cstat"><div class="n" id="ck-done" style="color:var(--v);">0</div><div class="l">feitas</div></div>
-    <div class="cstat"><div class="n" id="ck-pend" style="color:var(--t);">0</div><div class="l">pendentes</div></div>
-  </div>
-  <div class="prog"><div class="progf" id="prog" style="width:0%"></div></div>
-  <div class="ccats">
-    <button class="ccat active" data-cat="todas" onclick="filterCat(this)">Todas</button>
-    <button class="ccat" data-cat="AL" onclick="filterCat(this)">AL</button>
-    <button class="ccat" data-cat="Airbnb" onclick="filterCat(this)">Airbnb</button>
-    <button class="ccat" data-cat="admin" onclick="filterCat(this)">Admin</button>
-    <button class="ccat" data-cat="obra" onclick="filterCat(this)">Obra</button>
-    <button class="ccat" data-cat="jardim" onclick="filterCat(this)">Jardim</button>
-    <button class="ccat" data-cat="outro" onclick="filterCat(this)">Outro</button>
-  </div>
-  <div class="cadd">
-    <input type="text" id="new-task" placeholder="Nova tarefa..." onkeydown="if(event.key==='Enter')addTask()">
-    <select id="new-cat">
-      <option value="AL">AL</option><option value="Airbnb">Airbnb</option>
-      <option value="admin">Admin</option><option value="obra">Obra</option>
-      <option value="jardim">Jardim</option><option value="outro">Outro</option>
-    </select>
-    <button onclick="addTask()">+</button>
-  </div>
-  <div id="check-list"></div>
-  <button onclick="clearDone()" style="width:100%;margin-top:8px;background:none;border:0.5px solid var(--border);border-radius:10px;padding:10px;font-size:13px;color:var(--txt2);cursor:pointer;">Limpar concluídas</button>
+<div class="sl sectgap">histórico</div>
+<div id="hist-list"></div>
 </div>
-
-<!-- ACTIVIDADE --></div></div>
-<div id="p-act" style="display:none;padding:16px 16px 24px;"><div class="mnav">
-    <button onclick="changeMonth(-1)">&#8592;</button>
-    <h2 id="month-title">Junho 2025</h2>
-    <button onclick="changeMonth(1)">&#8594;</button>
-  </div>
-  <div class="sl">registar actividade</div>
-  <div class="card" style="padding:10px 14px;">
-    <div class="ir"><label>Noites ocupadas</label><input type="number" id="in-noites" placeholder="0" min="0" max="31" oninput="calcAct()"></div>
-    <div class="ir"><label>Receita alojamento (€)</label><input type="number" id="in-al" placeholder="0" oninput="calcAct()"></div>
-    <div class="ir"><label>Receita experiências (€)</label><input type="number" id="in-exp" placeholder="0" oninput="calcAct()"></div>
-    <div class="ir"><label>Custos totais (€)</label><input type="number" id="in-custo" placeholder="0" oninput="calcAct()"></div>
-    <div class="ir" style="border:none;"><label>Nº hóspedes</label><input type="number" id="in-hosp" placeholder="0" oninput="calcAct()"></div>
-  </div>
-  <button class="savebtn" id="savebtn" onclick="saveMonth()">Guardar mês</button>
-  <div class="ares">
-    <h3>resumo do mês</h3>
-    <div class="agrid">
-      <div class="ai"><div class="l">Receita total</div><div class="v" id="r-total">—</div></div>
-      <div class="ai"><div class="l">Resultado líquido</div><div class="v" id="r-liq">—</div></div>
-      <div class="ai"><div class="l">Taxa de ocupação</div><div class="v" id="r-ocup">—</div></div>
-      <div class="ai"><div class="l">Receita/hóspede</div><div class="v" id="r-revpan">—</div></div>
-    </div>
-  </div>
-  <div class="sl sectgap">histórico</div>
-  <div id="hist-list"></div>
+<div class="page" id="p-fin">
+<div class="tab-row">
+  <button class="tab-btn active" onclick="finTab('rec',this)">Receitas</button>
+  <button class="tab-btn" onclick="finTab('cus',this)">Custos</button>
+  <button class="tab-btn" onclick="finTab('proj',this)">Projeções</button>
 </div>
-
-<!-- FINANÇAS --></div></div>
-<div id="p-fin" style="display:none;padding:16px 16px 24px;"><div class="tab-row">
-    <button class="tab-btn active" onclick="finTab('rec',this)">Receitas</button>
-    <button class="tab-btn" onclick="finTab('cus',this)">Custos</button>
-    <button class="tab-btn" onclick="finTab('proj',this)">Projeções</button>
+<div id="ft-rec">
+  <div class="rtotals" id="rec-totals"></div>
+  <div class="radd">
+    <input type="text" id="rec-desc" placeholder="Descrição...">
+    <input type="number" id="rec-val" placeholder="€" style="width:80px;flex:none;">
+    <select id="rec-cat"><option value="AL">AL</option><option value="exp">Exp.</option><option value="prod">Prod.</option><option value="outro">Outro</option></select>
+    <button class="rbtn-r" onclick="addRec()">+</button>
   </div>
-  <div id="ft-rec">
-    <div class="rtotals" id="rec-totals"></div>
-    <div class="radd">
-      <input type="text" id="rec-desc" placeholder="Descrição...">
-      <input type="number" id="rec-val" placeholder="€" style="width:80px;flex:none;">
-      <select id="rec-cat">
-        <option value="AL">AL</option><option value="exp">Exp.</option>
-        <option value="prod">Prod.</option><option value="outro">Outro</option>
-      </select>
-      <button class="rbtn-r" onclick="addRec()">+</button>
-    </div>
-    <div id="rec-list"></div>
-  </div>
-  <div id="ft-cus" style="display:none;">
-    <div class="rtotals" id="cus-totals"></div>
-    <div class="radd">
-      <input type="text" id="cus-desc" placeholder="Descrição...">
-      <input type="number" id="cus-val" placeholder="€" style="width:80px;flex:none;">
-      <select id="cus-cat">
-        <option value="equipa">Equipa</option><option value="manut">Manut.</option>
-        <option value="plat">Plat.</option><option value="cons">Cons.</option>
-        <option value="reflo">Reflo.</option><option value="outro">Outro</option>
-      </select>
-      <button class="rbtn-c" onclick="addCus()">+</button>
-    </div>
-    <div id="cus-list"></div>
-  </div>
-  <div id="ft-proj" style="display:none;">
-    <div class="proj-tabs">
-      <button class="ptab active" data-yr="2026" onclick="showPY(this)">2026</button>
-      <button class="ptab" data-yr="2027" onclick="showPY(this)">2027</button>
-      <button class="ptab" data-yr="2028" onclick="showPY(this)">2028</button>
-      <button class="ptab" data-yr="2029" onclick="showPY(this)">2029</button>
-      <button class="ptab" data-yr="2030" onclick="showPY(this)">2030</button>
-    </div>
-    <div id="proj-content"></div>
-  </div>
+  <div id="rec-list"></div>
 </div>
-
-<!-- ENTIDADES --></div></div>
-<div id="p-ent" style="display:none;padding:16px 16px 24px;"><div class="card cv" style="margin-bottom:14px;">
-    <h3>Acordos preferenciais</h3>
-    <p>Entidades a contactar para alojamento preferencial — técnicos, formadores, artistas em residência. Regista o estado de cada contacto.</p>
+<div id="ft-cus" style="display:none;">
+  <div class="rtotals" id="cus-totals"></div>
+  <div class="radd">
+    <input type="text" id="cus-desc" placeholder="Descrição...">
+    <input type="number" id="cus-val" placeholder="€" style="width:80px;flex:none;">
+    <select id="cus-cat"><option value="equipa">Equipa</option><option value="manut">Manut.</option><option value="plat">Plat.</option><option value="cons">Cons.</option><option value="outro">Outro</option></select>
+    <button class="rbtn-c" onclick="addCus()">+</button>
   </div>
-  <div class="ent-filter">
-    <button class="ef-btn active" data-grp="todas" onclick="filterEnt(this)">Todas</button>
-    <button class="ef-btn" data-grp="cultural" onclick="filterEnt(this)">Culturais</button>
-    <button class="ef-btn" data-grp="coop" onclick="filterEnt(this)">Cooperativas</button>
-    <button class="ef-btn" data-grp="camara" onclick="filterEnt(this)">Câmara</button>
-    <button class="ef-btn" data-grp="univ" onclick="filterEnt(this)">Universidades</button>
-    <button class="ef-btn" data-grp="outros" onclick="filterEnt(this)">Outros</button>
-  </div>
-  <div id="ent-list"></div>
+  <div id="cus-list"></div>
 </div>
-
-<!-- MERCADO --></div></div>
-<div id="p-mkt" style="display:none;padding:16px 16px 24px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-    <span style="font-size:11px;color:var(--txt2);">Actualizado: <span id="mkt-date"></span></span>
-    <button onclick="refreshMkt()" id="mkt-btn" style="font-size:11px;padding:5px 10px;border-radius:8px;border:0.5px solid var(--v);color:var(--v);background:none;cursor:pointer;">↻ Actualizar</button>
+<div id="ft-proj" style="display:none;">
+  <div class="proj-tabs">
+    <button class="ptab active" data-yr="2026" onclick="showPY(this)">2026</button>
+    <button class="ptab" data-yr="2027" onclick="showPY(this)">2027</button>
+    <button class="ptab" data-yr="2028" onclick="showPY(this)">2028</button>
+    <button class="ptab" data-yr="2029" onclick="showPY(this)">2029</button>
+    <button class="ptab" data-yr="2030" onclick="showPY(this)">2030</button>
   </div>
-  <div class="sl">benchmarking — casas completas</div>
-  <div class="card" style="padding:8px 14px;">
-    <div class="lr"><div style="width:8px;height:8px;border-radius:50%;background:#1D9E75;flex-shrink:0;"></div><span style="flex:1;font-size:13px;">Casas Caiadas (Arraiolos)</span><span style="font-size:13px;font-weight:600;">420 €</span><span class="badge bt" style="margin-left:6px;">+40%</span></div>
-    <div class="lr"><div style="width:8px;height:8px;border-radius:50%;background:#5DCAA5;flex-shrink:0;"></div><span style="flex:1;font-size:13px;">La Casita (S.P. Gafanhoeira)</span><span style="font-size:13px;font-weight:600;">400 €</span><span class="badge bt" style="margin-left:6px;">+33%</span></div>
-    <div class="lr"><div style="width:8px;height:8px;border-radius:50%;background:#9FE1CB;flex-shrink:0;"></div><span style="flex:1;font-size:13px;">Cucumbi</span><span style="font-size:13px;font-weight:600;">360 €</span><span class="badge bt" style="margin-left:6px;">+20%</span></div>
-    <div class="lr" style="border-top:1px solid var(--border);margin-top:4px;padding-top:14px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--t);flex-shrink:0;"></div><span style="flex:1;font-size:13px;font-weight:600;">QV · Casa Freixo (6 pax)</span><span style="font-size:13px;font-weight:700;color:var(--t);">300 €</span></div>
-    <div class="lr"><div style="width:8px;height:8px;border-radius:50%;background:var(--a);flex-shrink:0;"></div><span style="flex:1;font-size:13px;font-weight:600;">QV · 3+ noites</span><span style="font-size:13px;font-weight:700;color:var(--a);">240 €</span></div>
-  </div>
-  <div class="metrics" style="margin-top:14px;">
-    <div class="metric"><div class="lbl">Média Booking</div><div class="val">218 €</div><div class="sub">Montemor · 2025</div></div>
-    <div class="metric"><div class="lbl">QV vs potencial</div><div class="val" style="color:var(--t);">-27%</div><div class="sub">margem para subir</div></div>
-  </div>
-  <div class="card ca">
-    <h3>Recomendação Airbnb — arranque</h3>
-    <p>Activar Modo Estreia · Preço inicial 15–20% abaixo para primeiras avaliações · Instant Book activado · Após 5 avaliações 4.8+, subir para <strong>320–350 €</strong>/noite.</p>
-  </div>
-  <div class="sl sectgap">simulador rápido</div>
-  <div class="slg"><div class="sll"><span>Noites/mês</span><strong id="sl-n-v">12</strong></div><input type="range" min="0" max="30" step="1" value="12" oninput="simCalc('n',this.value)"></div>
-  <div class="slg"><div class="sll"><span>Preço/noite</span><strong id="sl-p-v">300 €</strong></div><input type="range" min="200" max="500" step="10" value="300" oninput="simCalc('p',this.value)"></div>
-  <div class="slg"><div class="sll"><span>Experiências/mês</span><strong id="sl-e-v">400 €</strong></div><input type="range" min="0" max="3000" step="50" value="400" oninput="simCalc('e',this.value)"></div>
-  <div class="sres">
-    <div class="sgrid">
-      <div><div class="sl2">Alojamento</div><div class="sv" id="s-al">3600 €</div></div>
-      <div><div class="sl2">Experiências</div><div class="sv" id="s-exp">400 €</div></div>
-      <div><div class="sl2">Total/mês</div><div class="stot" id="s-tot">4000 €</div></div>
-    </div>
-    <div class="sfooter">Ocupação <strong id="s-ocp">40%</strong> · Anual est. <strong id="s-ano" style="color:var(--v);">48000 €</strong></div>
-  </div>
+  <div id="proj-content"></div>
 </div>
-
-
-<!-- IA SUGESTÕES --></div></div>
-<div id="p-ia" style="display:none;padding:16px 16px 24px;"><div class="card cv" style="margin-bottom:14px;">
-    <h3>Sugestões com IA</h3>
-    <p>O Claude analisa o estado actual da tua quinta e sugere novas tarefas e acções concretas.</p>
-  </div>
-
-  <div class="sl">chave api anthropic</div>
-  <div class="card" style="padding:12px 14px;margin-bottom:10px;">
-    <p style="font-size:12px;margin-bottom:8px;">Obtém a tua chave gratuita em <strong>console.anthropic.com</strong> → API Keys → Create Key</p>
-    <div style="display:flex;gap:8px;">
-      <input type="password" id="api-key-input" placeholder="sk-ant-..." style="flex:1;background:var(--bg);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--txt);outline:none;">
-      <button onclick="saveApiKey()" style="background:var(--v);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer;flex-shrink:0;">Guardar</button>
-    </div>
-    <p id="key-status" style="font-size:11px;color:var(--txt3);margin-top:6px;"></p>
-  </div>
-
-  <div class="sl" style="margin-top:16px;">contexto actual</div>
-  <div class="card" style="padding:12px 14px;margin-bottom:14px;" id="ia-context">
-    <p style="font-size:12px;color:var(--txt2);">A carregar...</p>
-  </div>
-
-  <button onclick="getSuggestions()" id="ia-btn" style="width:100%;background:var(--v);color:#fff;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M18 3v6M15 6h6"/></svg>
-    Pedir sugestões ao Claude
-  </button>
-
-  <div id="ia-result"></div>
 </div>
+<div class="page" id="p-ent">
+<div class="card cv" style="margin-bottom:14px;"><h3>Acordos preferenciais</h3><p>Entidades a contactar para alojamento preferencial. Regista o estado de cada contacto.</p></div>
+<div class="ent-filter">
+  <button class="ef-btn active" data-grp="todas" onclick="filterEnt(this)">Todas</button>
+  <button class="ef-btn" data-grp="cultural" onclick="filterEnt(this)">Culturais</button>
+  <button class="ef-btn" data-grp="coop" onclick="filterEnt(this)">Cooperativas</button>
+  <button class="ef-btn" data-grp="camara" onclick="filterEnt(this)">Câmara</button>
+  <button class="ef-btn" data-grp="univ" onclick="filterEnt(this)">Universidades</button>
+  <button class="ef-btn" data-grp="outros" onclick="filterEnt(this)">Outros</button>
+</div>
+<div id="ent-list"></div>
+</div>
+<div class="page" id="p-mkt">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+  <span style="font-size:11px;color:var(--txt2);">Actualizado: <span id="mkt-date"></span></span>
+  <button onclick="refreshMkt()" id="mkt-btn" style="font-size:11px;padding:5px 10px;border-radius:8px;border:0.5px solid var(--v);color:var(--v);background:none;cursor:pointer;">↻ Actualizar</button>
+</div>
+<div class="sl">benchmarking</div>
+<div class="card" style="padding:8px 14px;">
+  <div class="lr"><div style="width:8px;height:8px;border-radius:50%;background:#1D9E75;flex-shrink:0;"></div><span style="flex:1;font-size:13px;">Casas Caiadas (Arraiolos)</span><span style="font-size:13px;font-weight:600;">420€</span><span class="badge bt" style="margin-left:6px;">+40%</span></div>
+  <div class="lr"><div style="width:8px;height:8px;border-radius:50%;background:#5DCAA5;flex-shrink:0;"></div><span style="flex:1;font-size:13px;">La Casita (S.P. Gafanhoeira)</span><span style="font-size:13px;font-weight:600;">400€</span><span class="badge bt" style="margin-left:6px;">+33%</span></div>
+  <div class="lr"><div style="width:8px;height:8px;border-radius:50%;background:#9FE1CB;flex-shrink:0;"></div><span style="flex:1;font-size:13px;">Cucumbi</span><span style="font-size:13px;font-weight:600;">360€</span><span class="badge bt" style="margin-left:6px;">+20%</span></div>
+  <div class="lr" style="border-top:1px solid var(--border);margin-top:4px;padding-top:14px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--t);flex-shrink:0;"></div><span style="flex:1;font-size:13px;font-weight:600;">QV · Casa Freixo (6 pax)</span><span style="font-size:13px;font-weight:700;color:var(--t);">300€</span></div>
+  <div class="lr"><div style="width:8px;height:8px;border-radius:50%;background:var(--a);flex-shrink:0;"></div><span style="flex:1;font-size:13px;font-weight:600;">QV · 3+ noites</span><span style="font-size:13px;font-weight:700;color:var(--a);">240€</span></div>
+</div>
+<div class="metrics" style="margin-top:14px;">
+  <div class="metric"><div class="lbl">Média Booking</div><div class="val">218€</div><div class="sub">Montemor · 2025</div></div>
+  <div class="metric"><div class="lbl">QV vs potencial</div><div class="val" style="color:var(--t);">-27%</div><div class="sub">margem para subir</div></div>
+</div>
+<div class="card ca"><h3>Recomendação</h3><p>Subir para <strong>320–350€</strong>/noite época normal e <strong>380–420€</strong> época alta após primeiras avaliações.</p></div>
+<div class="sl sectgap">simulador</div>
+<div class="slg"><div class="sll"><span>Noites/mês</span><strong id="sl-n-v">12</strong></div><input type="range" min="0" max="30" step="1" value="12" oninput="simCalc('n',this.value)"></div>
+<div class="slg"><div class="sll"><span>Preço/noite</span><strong id="sl-p-v">300€</strong></div><input type="range" min="200" max="500" step="10" value="300" oninput="simCalc('p',this.value)"></div>
+<div class="slg"><div class="sll"><span>Experiências/mês</span><strong id="sl-e-v">400€</strong></div><input type="range" min="0" max="3000" step="50" value="400" oninput="simCalc('e',this.value)"></div>
+<div class="sres">
+  <div class="sgrid">
+    <div><div class="sl2">Alojamento</div><div class="sv" id="s-al">3600€</div></div>
+    <div><div class="sl2">Experiências</div><div class="sv" id="s-exp">400€</div></div>
+    <div><div class="sl2">Total/mês</div><div class="stot" id="s-tot">4000€</div></div>
+  </div>
+  <div class="sfooter">Ocupação <strong id="s-ocp">40%</strong> · Anual <strong id="s-ano" style="color:var(--v);">48000€</strong></div>
+</div>
+</div>
+<div class="page" id="p-ia">
+<div class="card cv" style="margin-bottom:14px;"><h3>Sugestões com IA</h3><p>O Claude analisa a tua quinta e sugere novas acções concretas.</p></div>
+<div class="sl">chave api anthropic</div>
+<div class="card" style="padding:12px 14px;margin-bottom:10px;">
+  <p style="font-size:12px;margin-bottom:8px;">Obtém a chave em <strong>console.anthropic.com</strong> → API Keys → Create Key</p>
+  <div style="display:flex;gap:8px;">
+    <input type="password" id="api-key-input" placeholder="sk-ant-..." style="flex:1;background:var(--bg);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--txt);outline:none;">
+    <button onclick="saveApiKey()" style="background:var(--v);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer;">Guardar</button>
+  </div>
+  <p id="key-status" style="font-size:11px;color:var(--txt3);margin-top:6px;"></p>
+</div>
+<div class="sl">contexto actual</div>
+<div class="card" style="padding:12px 14px;margin-bottom:14px;" id="ia-context"><p style="font-size:12px;color:var(--txt2);">A carregar...</p></div>
+<button onclick="getSuggestions()" id="ia-btn" style="width:100%;background:var(--v);color:#fff;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:14px;">Pedir sugestões ao Claude</button>
+<div id="ia-result"></div>
+</div>
+</div><!-- /pages -->
 
-<!-- EDIT MODAL -->
+
 <div class="modal-overlay" id="edit-modal" onclick="closeEditModal(event)">
   <div class="modal">
     <h3>Editar tarefa</h3>
-    <div class="modal-field">
-      <label>Texto</label>
-      <textarea id="edit-text"></textarea>
+    <div class="modal-field"><label>Texto</label><textarea id="edit-text"></textarea></div>
+    <div class="modal-field"><label>Categoria</label>
+      <select id="edit-cat"><option value="AL">AL</option><option value="Airbnb">Airbnb</option><option value="admin">Admin</option><option value="obra">Obra</option><option value="jardim">Jardim</option><option value="outro">Outro</option></select>
     </div>
-    <div class="modal-field">
-      <label>Categoria</label>
-      <select id="edit-cat">
-        <option value="AL">AL</option>
-        <option value="Airbnb">Airbnb</option>
-        <option value="admin">Admin</option>
-        <option value="obra">Obra</option>
-        <option value="jardim">Jardim</option>
-        <option value="outro">Outro</option>
-      </select>
-    </div>
-    <div class="modal-field">
-      <label>Fase / Grupo</label>
-      <select id="edit-grp">
-        <option value="Esta semana">Esta semana</option>
-        <option value="Em curso">Em curso</option>
-        <option value="Primeiro mês">Primeiro mês</option>
-        <option value="Airbnb">Estratégia Airbnb</option>
-        <option value="Médio prazo">Médio prazo</option>
-        <option value="Longo prazo">Longo prazo</option>
-        <option value="Admin">Admin</option>
-        <option value="Obra">Obra</option>
-        <option value="Jardim">Jardim</option>
-        <option value="Concluído">Concluído</option>
-        <option value="Sugestões IA">Sugestões IA</option>
-        <option value="Personalizado">Personalizado</option>
-      </select>
+    <div class="modal-field"><label>Fase</label>
+      <select id="edit-grp"><option value="Esta semana">Esta semana</option><option value="Em curso">Em curso</option><option value="Airbnb">Estratégia Airbnb</option><option value="Primeiro mês">Primeiro mês</option><option value="Médio prazo">Médio prazo</option><option value="Longo prazo">Longo prazo</option><option value="Admin">Admin</option><option value="Obra">Obra</option><option value="Jardim">Jardim</option><option value="Concluído">Concluído</option><option value="Sugestões IA">Sugestões IA</option><option value="Personalizado">Personalizado</option></select>
     </div>
     <input type="hidden" id="edit-id">
     <div class="modal-btns">
@@ -512,69 +381,260 @@ body[data-page="ia"] [data-page="ia"]
       <button class="modal-save" onclick="saveEditModal()">Guardar</button>
     </div>
   </div>
-</div></div></div>
 </div>
 
 
-
-<div style="display:flex;background:var(--card);border-top:0.5px solid var(--border);padding-bottom:env(safe-area-inset-bottom);">
-<button id="nb-home" onclick="nav('home')" style="flex:1;min-width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:var(--txt3);padding:8px 2px;cursor:pointer;font-family:inherit;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span style="font-size:9px;font-weight:500;">Início</span></button>
-<button id="nb-check" onclick="nav('check')" style="flex:1;min-width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:var(--txt3);padding:8px 2px;cursor:pointer;font-family:inherit;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span style="font-size:9px;font-weight:500;">Tarefas</span></button>
-<button id="nb-act" onclick="nav('act')" style="flex:1;min-width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:var(--txt3);padding:8px 2px;cursor:pointer;font-family:inherit;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span style="font-size:9px;font-weight:500;">Actividade</span></button>
-<button id="nb-fin" onclick="nav('fin')" style="flex:1;min-width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:var(--txt3);padding:8px 2px;cursor:pointer;font-family:inherit;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span style="font-size:9px;font-weight:500;">Finanças</span></button>
-<button id="nb-ent" onclick="nav('ent')" style="flex:1;min-width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:var(--txt3);padding:8px 2px;cursor:pointer;font-family:inherit;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span style="font-size:9px;font-weight:500;">Entidades</span></button>
-<button id="nb-mkt" onclick="nav('mkt')" style="flex:1;min-width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:var(--txt3);padding:8px 2px;cursor:pointer;font-family:inherit;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span style="font-size:9px;font-weight:500;">Mercado</span></button>
-<button id="nb-ia" onclick="nav('ia')" style="flex:1;min-width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:var(--txt3);padding:8px 2px;cursor:pointer;font-family:inherit;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M18 3v6M15 6h6"/></svg><span style="font-size:9px;font-weight:500;">IA</span></button>
-</div>
+<nav class="bnav">
+  <button class="nb active" onclick="goPage('home',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Início</span></button>
+  <button class="nb" onclick="goPage('check',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Tarefas</span></button>
+  <button class="nb" onclick="goPage('act',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Actividade</span></button>
+  <button class="nb" onclick="goPage('fin',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Finanças</span></button>
+  <button class="nb" onclick="goPage('ent',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Entidades</span></button>
+  <button class="nb" onclick="goPage('mkt',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Mercado</span></button>
+  <button class="nb" onclick="goPage('ia',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M18 3v6M15 6h6"/></svg><span>IA</span></button>
+</nav>
 
 </div>
 <script>
-var ALL_PAGES = ['home','check','act','fin','ent','mkt','ia'];
-var projYrA = '2026';
-var finTabA = 'rec';
 
-function nav(id) {
-  ALL_PAGES.forEach(function(pid) {
-    var el = document.getElementById('p-' + pid);
-    if(el) el.style.display = (pid === id) ? 'block' : 'none';
-    var btn = document.getElementById('nb-' + pid);
-    if(btn) btn.style.color = (pid === id) ? 'var(--v)' : 'var(--txt3)';
+function goPage(id,btn){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('p-'+id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='check')renderCheck();
+  if(id==='act')renderAct();
+  if(id==='fin'){renderFin();renderPY(projYrA);}
+  if(id==='ent')renderEnt();
+  if(id==='mkt')initSim();
+  if(id==='ia'){renderIAContext();var k=loadApiKey();if(k){document.getElementById('api-key-input').value='sk-ant-••••••••';document.getElementById('key-status').textContent='✓ Chave guardada';document.getElementById('key-status').style.color='var(--v)';}}
+}
+
+/* EXTENDED TASKS */
+var TASKS_DEFAULT=[
+  {id:1,text:'Licença de Alojamento Local obtida',cat:'AL',done:true,grp:'Concluído'},
+  {id:2,text:'Documentos obrigatórios afixados no alojamento',cat:'AL',done:true,grp:'Concluído'},
+  {id:3,text:'Nome da casa definido — Casa do Freixo',cat:'AL',done:true,grp:'Concluído'},
+  {id:4,text:'Textos PT para Airbnb redigidos',cat:'AL',done:true,grp:'Concluído'},
+  {id:5,text:'Seleccionar e editar fotografias finais',cat:'AL',done:false,grp:'Em curso'},
+  {id:6,text:'Traduzir textos para inglês',cat:'AL',done:false,grp:'Em curso'},
+  {id:7,text:'Criar conta e anúncio no Airbnb — Casa do Freixo',cat:'Airbnb',done:false,grp:'Esta semana'},
+  {id:8,text:'Configurar comunicação de hóspedes ao AIMA',cat:'AL',done:false,grp:'Esta semana'},
+  {id:9,text:'Activar Modo Estreia no Airbnb',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:10,text:'Definir preço inicial 15-20% abaixo do mercado',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:11,text:'Activar reserva instantânea (Instant Book)',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:12,text:'Completar 100% do perfil de anfitrião',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:13,text:'Responder a mensagens em menos de 1h',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:14,text:'Convidar amigos para primeira estadia',cat:'Airbnb',done:false,grp:'Airbnb'},
+  {id:15,text:'Escolher channel manager (Smoobu recomendado)',cat:'admin',done:false,grp:'Primeiro mês'},
+  {id:16,text:'Falar com contabilista — Cat. F vs B',cat:'admin',done:false,grp:'Primeiro mês'},
+  {id:17,text:'Instalar key box para check-in autónomo',cat:'obra',done:false,grp:'Primeiro mês'},
+  {id:18,text:'Protocolo de limpeza + inventário roupa de cama',cat:'AL',done:false,grp:'Primeiro mês'},
+  {id:19,text:'Configurar mensagens automáticas Airbnb',cat:'Airbnb',done:false,grp:'Primeiro mês'},
+  {id:20,text:'Criar página de reservas diretas no website',cat:'admin',done:false,grp:'Médio prazo'},
+  {id:21,text:'Formalizar estrutura jurídica (Unipessoal)',cat:'admin',done:false,grp:'Admin'},
+  {id:22,text:'Criar calendário editorial mensal Instagram',cat:'admin',done:false,grp:'Admin'},
+  {id:23,text:'Concluir obras do Moinho do Zangalho',cat:'obra',done:false,grp:'Obra'},
+  {id:24,text:'Plantar espécies autóctones — zona ribeira',cat:'jardim',done:false,grp:'Jardim'},
+];
+
+var ENTITIES=[
+  {id:1,name:'Oficinas do Convento',grp:'cultural',why:'Residências artísticas frequentes',email:'oc@oficinasdoconvento.com',phone:'+351 969 852 390',web:'oficinasdoconvento.com'},
+  {id:2,name:'Espaço do Tempo',grp:'cultural',why:'Produção de espectáculos — alojamento frequente',email:'info@oespacodotempo.pt',phone:'+351 266 877 073',web:'oespacodotempo.pt'},
+  {id:3,name:"Alma d'Arame",grp:'cultural',why:'Companhia de teatro — equipas externas',email:'geral@almadarame.pt',phone:'+351 266 890 262',web:'almadarame.pt'},
+  {id:4,name:'Cineclube de Montemor',grp:'cultural',why:'Ciclos de cinema com convidados externos',email:'',phone:'',web:'Via redes sociais'},
+  {id:5,name:'Freixo do Meio',grp:'coop',why:'Investigadores e parceiros técnicos externos',email:'visitas@herdadedofreixodomeio.pt',phone:'+351 266 877 136',web:'freixodomeio.pt'},
+  {id:6,name:'Coop. Integral Minga',grp:'coop',why:'Rede solidária — membros de fora visitam regularmente',email:'',phone:'',web:'Via website'},
+  {id:7,name:'Câmara Municipal',grp:'camara',why:'Técnicos e consultores externos',email:'geral@cm-montemornovo.pt',phone:'+351 266 898 100',web:''},
+  {id:8,name:'Turismo de Montemor',grp:'camara',why:'Parceria para rotas de turismo sustentável',email:'turismo@cm-montemornovo.pt',phone:'+351 266 898 103',web:''},
+  {id:9,name:'Universidade de Évora',grp:'univ',why:'Investigadores em agrofloresta e ecologia',email:'uevora@uevora.pt',phone:'+351 266 740 800',web:'uevora.pt'},
+  {id:10,name:'Gandum Village',grp:'outros',why:'Overflow em épocas altas — parceria mútua',email:'',phone:'',web:'Contacto directo'},
+];
+
+var GRP_LABEL={cultural:'Culturais',coop:'Cooperativas',camara:'Câmara',univ:'Universidades',outros:'Outros'};
+var PROJ={
+  2026:{rec:55000,al:40000,exp:12000,prod:3000,custo:32000,ocup:48,note:'Activação plataformas + experiências'},
+  2027:{rec:72000,al:51000,exp:18000,prod:3000,custo:38000,ocup:58,note:'Moinho operacional + pacotes premium'},
+  2028:{rec:90000,al:62000,exp:25000,prod:3000,custo:44000,ocup:68,note:'Posicionamento internacional'},
+  2029:{rec:108000,al:75000,exp:28000,prod:5000,custo:50000,ocup:75,note:'Viveiro e floresta produtiva'},
+  2030:{rec:125000,al:85000,exp:32000,prod:8000,custo:56000,ocup:82,note:'Quinta auto-sustentável'}
+};
+var finTabA='rec', projYrA='2026';
+
+/* ENTIDADES */
+var STATUS_OPTS=['Não contactado','Email enviado','Reunião marcada','Acordo activo'];
+var STATUS_COLORS=['#a0a09a','#BA7517','#185FA5','#1D9E75'];
+function filterEnt(btn){S.filterEnt=btn.dataset.grp;document.querySelectorAll('.ef-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');renderEnt();}
+function setEntStatus(id,val){S.entStatus[id]=parseInt(val);save();renderEnt();}
+function renderEnt(){
+  var vis=(!S.filterEnt||S.filterEnt==='todas')?ENTITIES:ENTITIES.filter(function(e){return e.grp===S.filterEnt;});
+  var h='';
+  vis.forEach(function(e){
+    var st=S.entStatus[e.id]||0,sc=STATUS_COLORS[st];
+    h+='<div class="ent-card"><div class="ent-top"><div><div class="ent-name">'+esc(e.name)+'</div><div class="ent-group">'+esc(GRP_LABEL[e.grp]||e.grp)+'</div></div><div style="width:10px;height:10px;border-radius:50%;background:'+sc+';flex-shrink:0;margin-top:4px;"></div></div>';
+    h+='<div class="ent-why">'+esc(e.why)+'</div><div class="ent-contacts">';
+    if(e.email)h+='<div class="ent-contact-item"><a href="mailto:'+e.email+'">'+e.email+'</a></div>';
+    if(e.phone)h+='<div class="ent-contact-item"><a href="tel:'+e.phone.replace(/\s/g,'')+'">'+e.phone+'</a></div>';
+    if(e.web)h+='<div class="ent-contact-item"><span style="color:var(--txt2);">'+e.web+'</span></div>';
+    h+='</div><div class="ent-status"><label>Estado:</label><select onchange="setEntStatus('+e.id+',this.value)">';
+    STATUS_OPTS.forEach(function(o,i){h+='<option value="'+i+'"'+(st===i?' selected':'')+'>'+o+'</option>';});
+    h+='</select></div></div>';
   });
-  document.getElementById('pages-wrap').scrollTop = 0;
-  if(id==='check') try{renderCheck();}catch(e){console.log(e);}
-  if(id==='act') try{renderAct();}catch(e){console.log(e);}
-  if(id==='fin') { try{renderFin();}catch(e){} try{renderPY(projYrA);}catch(e){} }
-  if(id==='ent') try{renderEnt();}catch(e){console.log(e);}
-  if(id==='mkt') try{initSim();}catch(e){}
-  if(id==='ia') {
-    try{renderIAContext();}catch(e){}
-    var k=loadApiKey();
-    if(k){
-      try{document.getElementById('api-key-input').value='sk-ant-••••••••';}catch(e){}
-      try{document.getElementById('key-status').textContent='✓ Chave guardada';document.getElementById('key-status').style.color='var(--v)';}catch(e){}
-    }
-  }
+  if(!vis.length)h='<p class="empty-state">Sem entidades</p>';
+  document.getElementById('ent-list').innerHTML=h;
 }
 
+/* FINANÇAS */
+function finTab(tab,btn){
+  finTabA=tab;
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  document.getElementById('ft-rec').style.display=tab==='rec'?'block':'none';
+  document.getElementById('ft-cus').style.display=tab==='cus'?'block':'none';
+  document.getElementById('ft-proj').style.display=tab==='proj'?'block':'none';
+  if(tab==='proj')renderPY(projYrA);
+}
+function addRec(){
+  var desc=document.getElementById('rec-desc').value.trim(),val=parseFloat(document.getElementById('rec-val').value),cat=document.getElementById('rec-cat').value;
+  if(!desc||!val)return;
+  S.entries.push({id:Date.now(),type:'rec',desc:desc,val:val,cat:cat});
+  document.getElementById('rec-desc').value='';document.getElementById('rec-val').value='';
+  save();renderFin();
+}
+function addCus(){
+  var desc=document.getElementById('cus-desc').value.trim(),val=parseFloat(document.getElementById('cus-val').value),cat=document.getElementById('cus-cat').value;
+  if(!desc||!val)return;
+  S.entries.push({id:Date.now(),type:'cus',desc:desc,val:val,cat:cat});
+  document.getElementById('cus-desc').value='';document.getElementById('cus-val').value='';
+  save();renderFin();
+}
+function delEntry(id){S.entries=S.entries.filter(function(e){return e.id!==id;});save();renderFin();}
+function renderFin(){
+  var recs=S.entries.filter(function(e){return e.type==='rec';});
+  var cuss=S.entries.filter(function(e){return e.type==='cus';});
+  var tR=recs.reduce(function(a,e){return a+e.val;},0),tC=cuss.reduce(function(a,e){return a+e.val;},0),liq=tR-tC;
+  var rt=document.getElementById('rec-totals');
+  if(rt)rt.innerHTML='<div class="rtotal"><div class="rl">Receitas</div><div class="rv" style="color:var(--v);">'+fmt(tR)+'</div></div><div class="rtotal"><div class="rl">Entradas</div><div class="rv">'+recs.length+'</div></div><div class="rtotal"><div class="rl">Resultado</div><div class="rv" style="color:'+(liq>=0?'var(--v)':'var(--t)')+';">'+(liq>=0?'+':'')+fmt(liq)+'</div></div>';
+  var ct=document.getElementById('cus-totals');
+  if(ct)ct.innerHTML='<div class="rtotal"><div class="rl">Custos</div><div class="rv" style="color:var(--t);">'+fmt(tC)+'</div></div><div class="rtotal"><div class="rl">Entradas</div><div class="rv">'+cuss.length+'</div></div><div class="rtotal"><div class="rl">Resultado</div><div class="rv" style="color:'+(liq>=0?'var(--v)':'var(--t)')+';">'+(liq>=0?'+':'')+fmt(liq)+'</div></div>';
+  var rh='';
+  recs.slice().reverse().forEach(function(e){rh+='<div class="ritem"><div style="width:7px;height:7px;border-radius:50%;background:var(--v);flex-shrink:0;"></div><span class="ritem-desc">'+esc(e.desc)+'</span><span class="ritem-cat bv">'+e.cat+'</span><span class="ritem-val" style="color:var(--v);">+'+fmt(e.val)+'</span><button class="ritem-del" onclick="delEntry('+e.id+')">×</button></div>';});
+  if(!recs.length)rh='<p class="empty-state">Adiciona a tua primeira receita</p>';
+  var rl=document.getElementById('rec-list');if(rl)rl.innerHTML=rh;
+  var ch='';
+  cuss.slice().reverse().forEach(function(e){ch+='<div class="ritem"><div style="width:7px;height:7px;border-radius:50%;background:var(--t);flex-shrink:0;"></div><span class="ritem-desc">'+esc(e.desc)+'</span><span class="ritem-cat bt">'+e.cat+'</span><span class="ritem-val" style="color:var(--t);">-'+fmt(e.val)+'</span><button class="ritem-del" onclick="delEntry('+e.id+')">×</button></div>';});
+  if(!cuss.length)ch='<p class="empty-state">Adiciona o teu primeiro custo</p>';
+  var cl=document.getElementById('cus-list');if(cl)cl.innerHTML=ch;
+}
+function showPY(btn){projYrA=btn.dataset.yr;document.querySelectorAll('.ptab').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');renderPY(projYrA);}
+function renderPY(yr){
+  var d=PROJ[yr];if(!d)return;
+  var liq=d.rec-d.custo,max=125000;
+  var h='<div class="proj-summary"><div class="ps"><div class="pl">Receita</div><div class="pv" style="color:var(--v);">'+fmtk(d.rec)+'</div></div><div class="ps"><div class="pl">Líquido</div><div class="pv" style="color:'+(liq>=0?'var(--v)':'var(--t)')+';">'+(liq>=0?'+':'')+fmtk(liq)+'</div></div><div class="ps"><div class="pl">Custos</div><div class="pv" style="color:var(--t);">'+fmtk(d.custo)+'</div></div><div class="ps"><div class="pl">Ocupação</div><div class="pv">'+d.ocup+'%</div></div></div>';
+  h+='<div class="card" style="padding:12px 14px;margin-bottom:10px;">';
+  h+=pbar('Alojamento',d.al,max,'#1D9E75');h+=pbar('Experiências',d.exp,max,'#EF9F27');h+=pbar('Produtos',d.prod,max,'#D85A30');h+=pbar('Custos',d.custo,max,'#888780');
+  h+='</div><div class="card cv"><h3>'+yr+'</h3><p>'+d.note+'</p></div>';
+  document.getElementById('proj-content').innerHTML=h;
+}
+function pbar(l,v,m,c){return '<div class="pr"><span class="pr-label">'+l+'</span><div class="pr-bw"><div class="pr-b" style="width:'+Math.round(v/m*100)+'%;background:'+c+';"></div></div><span class="pr-val" style="color:'+c+';">'+fmtk(v)+'</span></div>';}
 
-function nav(id) {
-  document.body.setAttribute('data-page', id);
-  document.getElementById('pages-wrap').scrollTop = 0;
-  if(id==='check') try{renderCheck();}catch(e){}
-  if(id==='act') try{renderAct();}catch(e){}
-  if(id==='fin') { try{renderFin();}catch(e){} try{renderPY(projYrA);}catch(e){} }
-  if(id==='ent') try{renderEnt();}catch(e){}
-  if(id==='mkt') try{initSim();}catch(e){}
-  if(id==='ia') {
-    try{renderIAContext();}catch(e){}
-    var k=loadApiKey();
-    if(k) {
-      try{document.getElementById('api-key-input').value='sk-ant-••••••••';}catch(e){}
-      try{document.getElementById('key-status').textContent='✓ Chave guardada';document.getElementById('key-status').style.color='var(--v)';}catch(e){}
-    }
-  }
+/* EDIT MODAL */
+function openEditModal(id){
+  var t=S.tasks.find(function(x){return x.id===id;});if(!t)return;
+  document.getElementById('edit-id').value=id;
+  document.getElementById('edit-text').value=t.text;
+  document.getElementById('edit-cat').value=t.cat||'outro';
+  document.getElementById('edit-grp').value=t.grp||'Personalizado';
+  document.getElementById('edit-modal').classList.add('open');
+  setTimeout(function(){document.getElementById('edit-text').focus();},100);
+}
+function closeEditModal(e){
+  if(e&&e.target!==document.getElementById('edit-modal'))return;
+  document.getElementById('edit-modal').classList.remove('open');
+}
+function saveEditModal(){
+  var id=parseInt(document.getElementById('edit-id').value);
+  var t=S.tasks.find(function(x){return x.id===id;});if(!t)return;
+  t.text=document.getElementById('edit-text').value.trim()||t.text;
+  t.cat=document.getElementById('edit-cat').value;
+  t.grp=document.getElementById('edit-grp').value;
+  save();document.getElementById('edit-modal').classList.remove('open');renderCheck();
+}
+function deleteFromModal(){
+  var id=parseInt(document.getElementById('edit-id').value);
+  S.tasks=S.tasks.filter(function(x){return x.id!==id;});
+  save();document.getElementById('edit-modal').classList.remove('open');renderCheck();
 }
 
+/* IA */
+function saveApiKey(){
+  var k=document.getElementById('api-key-input').value.trim();
+  if(!k||!k.startsWith('sk-')){document.getElementById('key-status').textContent='Chave inválida';document.getElementById('key-status').style.color='var(--t)';return;}
+  try{localStorage.setItem('qv_apikey',k);}catch(e){}
+  document.getElementById('key-status').textContent='✓ Chave guardada';
+  document.getElementById('key-status').style.color='var(--v)';
+  document.getElementById('api-key-input').value='sk-ant-••••••••';
+}
+function loadApiKey(){try{return localStorage.getItem('qv_apikey')||'';}catch(e){return '';}}
+function renderIAContext(){
+  var el=document.getElementById('ia-context');if(!el)return;
+  var done=S.tasks.filter(function(t){return t.done;}).length;
+  var pend=S.tasks.length-done;
+  var key=loadApiKey();
+  el.innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div><div style="font-size:10px;color:var(--txt2);">Pendentes</div><div style="font-size:18px;font-weight:700;color:var(--t);">'+pend+'</div></div><div><div style="font-size:10px;color:var(--txt2);">Concluídas</div><div style="font-size:18px;font-weight:700;color:var(--v);">'+done+'</div></div></div><div style="margin-top:8px;font-size:11px;color:'+(key?'var(--v)':'var(--t)')+';">'+(key?'✓ Chave API configurada':'⚠ Chave API não configurada')+'</div>';
+}
+function buildPrompt(){
+  var done=S.tasks.filter(function(t){return t.done;}).map(function(t){return t.text;});
+  var pend=S.tasks.filter(function(t){return !t.done;}).map(function(t){return t.text;});
+  return 'És um consultor de ecoturismo rural em Portugal. Quinta das Valentas, 8,5ha em Montemor-o-Novo, Alentejo, Rio Almansor. 4 vertentes: AL (Casa do Freixo, licença obtida), workshops, carpintaria, reflorestação. Airbnb a arrancar agora.
+
+CONCLUÍDAS:
+'+done.slice(0,8).join('
+')+'
+
+PENDENTES:
+'+pend.slice(0,12).join('
+')+'
+
+Sugere exactamente 6 novas tarefas concretas e prioritárias. Responde APENAS em JSON:
+{"sugestoes":[{"texto":"tarefa","categoria":"AL|Airbnb|admin|obra|jardim|outro","prioridade":"alta|media|baixa","razao":"justificação breve"}]}';
+}
+async function getSuggestions(){
+  var key=loadApiKey();
+  if(!key){document.getElementById('ia-result').innerHTML='<div class="card ct"><h3>Chave API necessária</h3><p>Introduz a chave API da Anthropic acima.</p></div>';return;}
+  var btn=document.getElementById('ia-btn');
+  btn.disabled=true;btn.textContent='A consultar...';
+  document.getElementById('ia-result').innerHTML='<div class="ia-loading"><p>A analisar a tua quinta...</p></div>';
+  try{
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1000,messages:[{role:'user',content:buildPrompt()}]})});
+    var data=await resp.json();
+    if(data.error)throw new Error(data.error.message);
+    var text=data.content[0].text;
+    var parsed=JSON.parse(text.replace(/```json|```/g,'').trim());
+    renderSuggestions(parsed.sugestoes||[]);
+  }catch(e){
+    document.getElementById('ia-result').innerHTML='<div class="card ct"><h3>Erro</h3><p>'+esc(String(e.message))+'</p></div>';
+  }finally{
+    btn.disabled=false;btn.textContent='Pedir sugestões ao Claude';
+  }
+}
+function renderSuggestions(sugs){
+  if(!sugs.length){document.getElementById('ia-result').innerHTML='<p class="empty-state">Sem sugestões</p>';return;}
+  var PRIO={'alta':'bt','media':'ba','baixa':'bb'};
+  var h='<div class="sl">'+sugs.length+' sugestões</div>';
+  sugs.forEach(function(s,i){
+    h+='<div class="ia-suggestion"><div class="ia-text">'+esc(s.texto)+'</div>';
+    h+='<div style="font-size:11px;color:var(--txt2);margin-top:3px;font-style:italic;">'+esc(s.razao)+'</div>';
+    h+='<div style="display:flex;gap:6px;align-items:center;margin-top:6px;"><span class="ia-cat '+(CAT_C[s.categoria]||'ba')+'">'+esc(s.categoria)+'</span><span class="badge '+(PRIO[s.prioridade]||'bb')+'">'+esc(s.prioridade)+'</span>';
+    h+='<button class="ia-add-btn" onclick="addFromIA(this)" data-texto="'+esc(s.texto)+'" data-cat="'+esc(s.categoria)+'">+ Adicionar</button></div></div>';
+  });
+  document.getElementById('ia-result').innerHTML=h;
+}
+function addFromIA(btn){
+  S.tasks.push({id:Date.now(),text:btn.dataset.texto,cat:btn.dataset.cat,done:false,grp:'Sugestões IA'});
+  save();btn.textContent='✓ Adicionada';btn.style.background='var(--v)';btn.style.color='#fff';btn.disabled=true;
+}
+function fmtk(n){return n>=1000?(n/1000).toFixed(1).replace('.0','')+'k€':Math.round(n)+'€';}
 
 var TASKS_DEFAULT=[
   {id:1,text:'Licença de Alojamento Local obtida',cat:'AL',done:true,grp:'Concluído'},
@@ -672,28 +732,17 @@ function save(){
   catch(e){console.log('save failed');}
 }
 
-function goPage(id){
+function goPage(id,btn){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('active');});
-  var pg=document.getElementById('p-'+id);
-  if(pg){pg.classList.add('active');}
-  var btn=document.querySelector('[data-page="'+id+'"]');
-  if(btn){btn.classList.add('active');}
-  if(id==='check')try{renderCheck();}catch(e){}
-  if(id==='act')try{renderAct();}catch(e){}
-  if(id==='fin'){try{renderFin();}catch(e){}try{renderPY(projYrA);}catch(e){}}
-  if(id==='ent')try{renderEnt();}catch(e){}
-  if(id==='mkt')try{initSim();}catch(e){}
-  if(id==='ia'){try{renderIAContext();}catch(e){}var k=loadApiKey();if(k){document.getElementById('api-key-input').value='sk-ant-••••••••';document.getElementById('key-status').textContent='✓ Chave guardada';document.getElementById('key-status').style.color='var(--v)';}}
+  document.getElementById('p-'+id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='check')renderCheck();
+  if(id==='act')renderAct();
+  if(id==='fin'){renderFin();renderPY(projYrA);}
+  if(id==='ent')renderEnt();
+  if(id==='mkt')initSim();
 }
-
-// Event delegation for nav - works on all Android Chrome versions
-document.addEventListener('DOMContentLoaded', function(){
-  document.getElementById('bnav').addEventListener('click', function(e){
-    var btn = e.target.closest('[data-page]');
-    if(btn){ goPage(btn.dataset.page); }
-  });
-});
 
 function hdrDate(){var d=new Date();document.getElementById('hdr-date').innerHTML=d.getDate()+'/'+(d.getMonth()+1)+'<br>'+d.getFullYear();}
 
@@ -725,9 +774,9 @@ function renderCheck(){
     groups[g].forEach(function(t){
       h+='<div class="ci'+(t.done?' done':'')+'">';
       h+='<div class="ccb'+(t.done?' chk':'')+'" onclick="toggleTask('+t.id+')"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>';
-      h+='<span class="cit" onclick="openEditModal('+t.id+')" style="cursor:pointer;">'+esc(t.text)+'</span>';
-      h+='<span class="badge '+(CAT_C[t.cat]||'ba')+'" style="margin-right:2px;flex-shrink:0;">'+t.cat+'</span>';
-      h+='<button class="ci-edit-btn" onclick="openEditModal('+t.id+')">✎</button></div>';
+      h+='<span class="cit">'+esc(t.text)+'</span>';
+      h+='<span class="badge '+(CAT_C[t.cat]||'ba')+'" style="margin-right:4px;flex-shrink:0;">'+t.cat+'</span>';
+      h+='<button class="cdel" onclick="delTask('+t.id+')">×</button></div>';
     });
   });
   if(!vis.length)h='<p class="empty-state">Sem tarefas nesta categoria</p>';
@@ -835,34 +884,6 @@ function renderPY(yr){
 }
 function pbar(l,v,m,c){return '<div class="pr"><span class="pr-label">'+l+'</span><div class="pr-bw"><div class="pr-b" style="width:'+Math.round(v/m*100)+'%;background:'+c+';"></div></div><span class="pr-val" style="color:'+c+';">'+fmtk(v)+'</span></div>';}
 
-
-/* IA PAGE */
-.ia-suggestion{background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px;}
-.ia-dot{width:8px;height:8px;border-radius:50%;background:var(--v);flex-shrink:0;margin-top:5px;}
-.ia-text{flex:1;font-size:13px;color:var(--txt);line-height:1.5;}
-.ia-cat{font-size:10px;padding:1px 7px;border-radius:10px;font-weight:600;margin-top:4px;display:inline-block;}
-.ia-add-btn{background:none;border:0.5px solid var(--v);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--v);cursor:pointer;margin-top:6px;font-weight:600;}
-.ia-loading{text-align:center;padding:24px;color:var(--txt2);font-size:13px;}
-.ia-loading svg{animation:spin 1s linear infinite;display:block;margin:0 auto 10px;}
-@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-
-
-.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:100;display:none;align-items:flex-end;}
-.modal-overlay.open{display:flex;}
-.modal{background:var(--card);border-radius:20px 20px 0 0;padding:20px 16px 32px;width:100%;max-width:440px;margin:0 auto;}
-.modal h3{font-size:15px;font-weight:600;margin-bottom:16px;color:var(--txt);}
-.modal-field{margin-bottom:12px;}
-.modal-field label{font-size:11px;font-weight:600;color:var(--txt2);letter-spacing:0.06em;text-transform:uppercase;display:block;margin-bottom:5px;}
-.modal-field input,.modal-field select,.modal-field textarea{width:100%;background:var(--bg);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--txt);outline:none;font-family:inherit;}
-.modal-field input:focus,.modal-field select:focus,.modal-field textarea:focus{border-color:var(--v);}
-.modal-field textarea{resize:none;height:70px;}
-.modal-btns{display:flex;gap:8px;margin-top:16px;}
-.modal-btns button{flex:1;padding:12px;border-radius:12px;border:none;font-size:14px;font-weight:600;cursor:pointer;}
-.modal-save{background:var(--v);color:#fff;}
-.modal-cancel{background:var(--bg);color:var(--txt2);border:0.5px solid var(--border) !important;}
-.modal-delete{background:var(--t1);color:var(--t2);border:0.5px solid var(--t1) !important;flex:0.5 !important;}
-.ci-edit-btn{background:none;border:none;color:var(--txt3);cursor:pointer;padding:4px;font-size:14px;flex-shrink:0;}
-
 /* ENTIDADES */
 var STATUS_OPTS=['Não contactado','Email enviado','Reunião marcada','Acordo activo'];
 var STATUS_COLORS=['#a0a09a','#BA7517','#185FA5','#1D9E75'];
@@ -917,202 +938,22 @@ function fmt(n){return Math.round(n).toLocaleString('pt-PT')+'€';}
 function fmtk(n){return n>=1000?(n/1000).toFixed(1).replace('.0','')+'k€':Math.round(n)+'€';}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-
-/* IA SUGESTÕES */
-function saveApiKey(){
-  var k=document.getElementById('api-key-input').value.trim();
-  if(!k||!k.startsWith('sk-')){
-    document.getElementById('key-status').textContent='Chave inválida. Deve começar com sk-';
-    document.getElementById('key-status').style.color='var(--t)';
-    return;
-  }
-  try{localStorage.setItem('qv_apikey',k);}catch(e){}
-  document.getElementById('key-status').textContent='✓ Chave guardada';
-  document.getElementById('key-status').style.color='var(--v)';
-  document.getElementById('api-key-input').value='sk-ant-••••••••';
-}
-
-function loadApiKey(){
-  try{return localStorage.getItem('qv_apikey')||'';}catch(e){return '';}
-}
-
-function renderIAContext(){
-  var el=document.getElementById('ia-context');
-  if(!el)return;
-  var total=S.tasks.length;
-  var done=S.tasks.filter(function(t){return t.done;}).length;
-  var pend=total-done;
-  var mkeys=Object.keys(S.months).sort().reverse();
-  var lastMonth=mkeys.length?S.months[mkeys[0]]:null;
-  var key=loadApiKey();
-  var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
-  html+='<div><div style="font-size:10px;color:var(--txt2);">Tarefas pendentes</div><div style="font-size:16px;font-weight:700;color:var(--t);">'+pend+'</div></div>';
-  html+='<div><div style="font-size:10px;color:var(--txt2);">Tarefas concluídas</div><div style="font-size:16px;font-weight:700;color:var(--v);">'+done+'</div></div>';
-  if(lastMonth){
-    var tot=(lastMonth.al||0)+(lastMonth.exp||0);
-    html+='<div><div style="font-size:10px;color:var(--txt2);">Último mês registado</div><div style="font-size:14px;font-weight:700;">'+MN[parseInt(mkeys[0].split('-')[1])-1].substr(0,3)+'</div></div>';
-    html+='<div><div style="font-size:10px;color:var(--txt2);">Receita registada</div><div style="font-size:14px;font-weight:700;color:var(--v);">'+fmt(tot)+'</div></div>';
-  }
-  html+='</div>';
-  html+='<div style="margin-top:8px;padding-top:8px;border-top:0.5px solid var(--border);font-size:11px;color:'+(key?'var(--v)':'var(--t)')+';">'+(key?'✓ Chave API configurada':'⚠ Chave API não configurada')+'</div>';
-  el.innerHTML=html;
-}
-
-function buildPrompt(){
-  var done=S.tasks.filter(function(t){return t.done;}).map(function(t){return t.text;});
-  var pend=S.tasks.filter(function(t){return !t.done;}).map(function(t){return t.text;});
-  var mkeys=Object.keys(S.months).sort().reverse();
-  var finInfo='';
-  if(mkeys.length){
-    var m=S.months[mkeys[0]];
-    var tot=(m.al||0)+(m.exp||0);
-    finInfo='Último mês registado: '+mkeys[0]+' — '+m.noites+' noites, receita '+Math.round(tot)+'€, custos '+Math.round(m.custo||0)+'€.';
-  }
-  var entContacted=ENTITIES.filter(function(e){return (S.entStatus[e.id]||0)>0;}).map(function(e){return e.name;});
-
-  return 'És um consultor especializado em ecoturismo e turismo rural em Portugal. '+
-    'Estás a ajudar a Quinta das Valentas, um projecto de 8,5 hectares em Montemor-o-Novo, Alentejo, '+
-    'às margens do Rio Almansor. O projecto tem 4 vertentes: alojamento local (Casa do Freixo, 5 quartos, licença AL obtida), '+
-    'formações e workshops, carpintaria e produtos, e reflorestação com viveiro de autóctones. '+
-    'A proprietária é Isabel Pinto Coelho. O Airbnb está a arrancar agora. '+
-    '
-
-TAREFAS JÁ CONCLUÍDAS:
-'+done.slice(0,10).join('
-')+
-    '
-
-TAREFAS PENDENTES:
-'+pend.slice(0,15).join('
-')+
-    (finInfo?'
-
-ACTIVIDADE FINANCEIRA:
-'+finInfo:'')+
-    (entContacted.length?'
-
-ENTIDADES JÁ CONTACTADAS:
-'+entContacted.join(', '):'')+
-    '
-
-Com base neste contexto, sugere exactamente 6 novas tarefas ou acções concretas e prioritárias para a Quinta das Valentas. '+
-    'Sê específico e prático. Responde APENAS em JSON válido, sem texto antes ou depois, neste formato exacto:
-'+
-    '{"sugestoes":[{"texto":"tarefa concreta","categoria":"AL|Airbnb|admin|obra|jardim|outro","prioridade":"alta|media|baixa","razao":"uma frase de justificação"}]}';
-}
-
-async function getSuggestions(){
-  var key=loadApiKey();
-  if(!key){
-    document.getElementById('ia-result').innerHTML='<div class="card ct"><h3>Chave API necessária</h3><p>Introduz a tua chave API da Anthropic no campo acima para usar esta funcionalidade.</p></div>';
-    return;
-  }
-  var btn=document.getElementById('ia-btn');
-  btn.disabled=true;
-  btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> A consultar o Claude...';
-  document.getElementById('ia-result').innerHTML='<div class="ia-loading"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--v)" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>A analisar a tua quinta...</div>';
-
-  try{
-    var resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
-      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1000,messages:[{role:'user',content:buildPrompt()}]})
-    });
-    var data=await resp.json();
-    if(data.error){throw new Error(data.error.message||'Erro API');}
-    var text=data.content[0].text;
-    var clean=text.replace(/```json|```/g,'').trim();
-    var parsed=JSON.parse(clean);
-    renderSuggestions(parsed.sugestoes||[]);
-  }catch(e){
-    console.log('IA error:',e);
-    document.getElementById('ia-result').innerHTML='<div class="card ct"><h3>Erro</h3><p>'+esc(e.message||'Erro desconhecido. Verifica a chave API.')+'</p></div>';
-  }finally{
-    btn.disabled=false;
-    btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M18 3v6M15 6h6"/></svg> Pedir sugestões ao Claude';
-  }
-}
-
-function renderSuggestions(sugs){
-  if(!sugs.length){document.getElementById('ia-result').innerHTML='<p class="empty-state">Sem sugestões</p>';return;}
-  var PRIO_C={alta:'bt',media:'ba',baixa:'bb'};
-  var h='<div class="sl">'+sugs.length+' sugestões para a quinta</div>';
-  sugs.forEach(function(s,i){
-    h+='<div class="ia-suggestion">';
-    h+='<div class="ia-dot"></div>';
-    h+='<div style="flex:1;">';
-    h+='<div class="ia-text">'+esc(s.texto)+'</div>';
-    h+='<div style="font-size:11px;color:var(--txt2);margin-top:3px;font-style:italic;">'+esc(s.razao)+'</div>';
-    h+='<div style="display:flex;gap:6px;align-items:center;margin-top:6px;">';
-    h+='<span class="ia-cat '+(CAT_C[s.categoria]||'ba')+'">'+esc(s.categoria)+'</span>';
-    h+='<span class="badge '+(PRIO_C[s.prioridade]||'bb')+'">'+esc(s.prioridade)+'</span>';
-    h+='<button class="ia-add-btn" onclick="addFromIA('+i+',this)" data-texto="'+esc(s.texto)+'" data-cat="'+esc(s.categoria)+'">+ Adicionar</button>';
-    h+='</div></div></div>';
-  });
-  document.getElementById('ia-result').innerHTML=h;
-}
-
-var lastSuggestions=[];
-function addFromIA(idx,btn){
-  var texto=btn.dataset.texto,cat=btn.dataset.cat;
-  S.tasks.push({id:Date.now(),text:texto,cat:cat,done:false,grp:'Sugestões IA'});
-  save();
-  btn.textContent='✓ Adicionada';
-  btn.style.background='var(--v)';
-  btn.style.color='#fff';
-  btn.style.borderColor='var(--v)';
-  btn.disabled=true;
-}
-
-
-/* EDIT MODAL */
-function openEditModal(id){
-  var t=S.tasks.find(function(x){return x.id===id;});
-  if(!t)return;
-  document.getElementById('edit-id').value=id;
-  document.getElementById('edit-text').value=t.text;
-  document.getElementById('edit-cat').value=t.cat||'outro';
-  document.getElementById('edit-grp').value=t.grp||'Personalizado';
-  document.getElementById('edit-modal').classList.add('open');
-  setTimeout(function(){document.getElementById('edit-text').focus();},100);
-}
-function closeEditModal(e){
-  if(e&&e.target!==document.getElementById('edit-modal'))return;
-  document.getElementById('edit-modal').classList.remove('open');
-}
-function saveEditModal(){
-  var id=parseInt(document.getElementById('edit-id').value);
-  var t=S.tasks.find(function(x){return x.id===id;});
-  if(!t)return;
-  t.text=document.getElementById('edit-text').value.trim()||t.text;
-  t.cat=document.getElementById('edit-cat').value;
-  t.grp=document.getElementById('edit-grp').value;
-  save();
-  document.getElementById('edit-modal').classList.remove('open');
-  renderCheck();
-}
-function deleteFromModal(){
-  var id=parseInt(document.getElementById('edit-id').value);
-  S.tasks=S.tasks.filter(function(x){return x.id!==id;});
-  save();
-  document.getElementById('edit-modal').classList.remove('open');
-  renderCheck();
-}
+/* INIT */
+load();
+hdrDate();
+document.getElementById('mkt-date').textContent=new Date().toLocaleDateString('pt-PT');
+renderCheck();renderFin();renderEnt();initSim();renderPY('2026');
 
 /* INIT */
 load();
 hdrDate();
 try{document.getElementById('mkt-date').textContent=new Date().toLocaleDateString('pt-PT');}catch(e){}
-try{renderCheck();}catch(e){console.log('renderCheck err',e);}
-try{renderFin();}catch(e){console.log('renderFin err',e);}
-try{renderEnt();}catch(e){console.log('renderEnt err',e);}
-try{initSim();}catch(e){console.log('initSim err',e);}
-try{renderPY('2026');}catch(e){console.log('renderPY err',e);}
+renderCheck();
+renderFin();
+renderEnt();
+initSim();
+renderPY('2026');
 
-
-
-// Start on home page
-nav('home');
 </script>
 </body>
 </html>
