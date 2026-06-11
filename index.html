@@ -22,18 +22,18 @@
   :root{--bg:#111110;--card:#1c1c1a;--border:#2e2e2a;--txt:#f0f0ec;--txt2:#9a9a94;--txt3:#606060;
   --v1:#0a2e22;--v2:#9FE1CB;--t1:#2e1208;--t2:#F0997B;--a1:#2a1e08;--a2:#FAC775;}
 }
-html,body{height:100%;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:16px;overscroll-behavior:none;}
-.app{display:flex;flex-direction:column;height:100vh;max-width:440px;margin:0 auto;}
+html,body{height:100%;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:16px;overscroll-behavior:none;overflow:hidden;}
+.app{display:flex;flex-direction:column;height:100%;height:100dvh;max-width:440px;margin:0 auto;position:relative;}
 .header{height:56px;display:flex;align-items:center;padding:0 16px;gap:10px;background:var(--bg);border-bottom:0.5px solid var(--border);flex-shrink:0;}
 .logo{width:30px;height:30px;border-radius:50%;background:var(--v1);display:flex;align-items:center;justify-content:center;}
 .logo svg{width:16px;height:16px;stroke:var(--v);fill:none;stroke-width:2;stroke-linecap:round;}
 .header-text h1{font-size:15px;font-weight:600;color:var(--txt);}
 .header-text p{font-size:11px;color:var(--txt2);}
 .hdr-r{margin-left:auto;font-size:11px;color:var(--txt3);text-align:right;line-height:1.4;}
-.pages{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
-.page{display:none;padding:16px 16px 24px;}
-.page.active{display:block;}
-.bnav{height:64px;display:flex;background:var(--card);border-top:0.5px solid var(--border);flex-shrink:0;padding-bottom:env(safe-area-inset-bottom);overflow-x:auto;}
+.pages{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding-bottom:72px;}
+.page{display:none !important;padding:16px 16px 24px;}
+.page.active{display:block !important;}
+.bnav{height:64px;display:flex;background:var(--card);border-top:0.5px solid var(--border);padding-bottom:env(safe-area-inset-bottom);overflow-x:auto;position:fixed;bottom:0;left:0;right:0;max-width:440px;margin:0 auto;z-index:100;}
 .nb{flex:1;min-width:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;border:none;background:none;color:var(--txt3);padding:8px 2px;transition:color 0.15s;}
 .nb svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
 .nb span{font-size:9px;font-weight:500;}
@@ -146,6 +146,34 @@ input[type=range]{width:100%;height:4px;accent-color:var(--v);cursor:pointer;}
 .sv{font-size:15px;font-weight:600;color:var(--txt);}
 .stot{font-size:20px;font-weight:700;color:var(--v);}
 .sfooter{margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border);font-size:11px;color:var(--txt2);text-align:center;}
+
+/* IA PAGE */
+.ia-suggestion{background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px;}
+.ia-dot{width:8px;height:8px;border-radius:50%;background:var(--v);flex-shrink:0;margin-top:5px;}
+.ia-text{flex:1;font-size:13px;color:var(--txt);line-height:1.5;}
+.ia-cat{font-size:10px;padding:1px 7px;border-radius:10px;font-weight:600;margin-top:4px;display:inline-block;}
+.ia-add-btn{background:none;border:0.5px solid var(--v);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--v);cursor:pointer;margin-top:6px;font-weight:600;}
+.ia-loading{text-align:center;padding:24px;color:var(--txt2);font-size:13px;}
+.ia-loading svg{animation:spin 1s linear infinite;display:block;margin:0 auto 10px;}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:100;display:none;align-items:flex-end;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--card);border-radius:20px 20px 0 0;padding:20px 16px 32px;width:100%;max-width:440px;margin:0 auto;}
+.modal h3{font-size:15px;font-weight:600;margin-bottom:16px;color:var(--txt);}
+.modal-field{margin-bottom:12px;}
+.modal-field label{font-size:11px;font-weight:600;color:var(--txt2);letter-spacing:0.06em;text-transform:uppercase;display:block;margin-bottom:5px;}
+.modal-field input,.modal-field select,.modal-field textarea{width:100%;background:var(--bg);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--txt);outline:none;font-family:inherit;}
+.modal-field input:focus,.modal-field select:focus,.modal-field textarea:focus{border-color:var(--v);}
+.modal-field textarea{resize:none;height:70px;}
+.modal-btns{display:flex;gap:8px;margin-top:16px;}
+.modal-btns button{flex:1;padding:12px;border-radius:12px;border:none;font-size:14px;font-weight:600;cursor:pointer;}
+.modal-save{background:var(--v);color:#fff;}
+.modal-cancel{background:var(--bg);color:var(--txt2);border:0.5px solid var(--border) !important;}
+.modal-delete{background:var(--t1);color:var(--t2);border:0.5px solid var(--t1) !important;flex:0.5 !important;}
+.ci-edit-btn{background:none;border:none;color:var(--txt3);cursor:pointer;padding:4px;font-size:14px;flex-shrink:0;}
+
 /* ENTIDADES */
 .ent-filter{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;}
 .ef-btn{font-size:11px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--border);background:var(--card);color:var(--txt2);cursor:pointer;white-space:nowrap;font-weight:500;flex-shrink:0;}
@@ -391,6 +419,81 @@ input[type=range]{width:100%;height:4px;accent-color:var(--v);cursor:pointer;}
   </div>
 </div>
 
+
+<!-- IA SUGESTÕES -->
+<div class="page" id="p-ia">
+  <div class="card cv" style="margin-bottom:14px;">
+    <h3>Sugestões com IA</h3>
+    <p>O Claude analisa o estado actual da tua quinta e sugere novas tarefas e acções concretas.</p>
+  </div>
+
+  <div class="sl">chave api anthropic</div>
+  <div class="card" style="padding:12px 14px;margin-bottom:10px;">
+    <p style="font-size:12px;margin-bottom:8px;">Obtém a tua chave gratuita em <strong>console.anthropic.com</strong> → API Keys → Create Key</p>
+    <div style="display:flex;gap:8px;">
+      <input type="password" id="api-key-input" placeholder="sk-ant-..." style="flex:1;background:var(--bg);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--txt);outline:none;">
+      <button onclick="saveApiKey()" style="background:var(--v);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer;flex-shrink:0;">Guardar</button>
+    </div>
+    <p id="key-status" style="font-size:11px;color:var(--txt3);margin-top:6px;"></p>
+  </div>
+
+  <div class="sl" style="margin-top:16px;">contexto actual</div>
+  <div class="card" style="padding:12px 14px;margin-bottom:14px;" id="ia-context">
+    <p style="font-size:12px;color:var(--txt2);">A carregar...</p>
+  </div>
+
+  <button onclick="getSuggestions()" id="ia-btn" style="width:100%;background:var(--v);color:#fff;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M18 3v6M15 6h6"/></svg>
+    Pedir sugestões ao Claude
+  </button>
+
+  <div id="ia-result"></div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="edit-modal" onclick="closeEditModal(event)">
+  <div class="modal">
+    <h3>Editar tarefa</h3>
+    <div class="modal-field">
+      <label>Texto</label>
+      <textarea id="edit-text"></textarea>
+    </div>
+    <div class="modal-field">
+      <label>Categoria</label>
+      <select id="edit-cat">
+        <option value="AL">AL</option>
+        <option value="Airbnb">Airbnb</option>
+        <option value="admin">Admin</option>
+        <option value="obra">Obra</option>
+        <option value="jardim">Jardim</option>
+        <option value="outro">Outro</option>
+      </select>
+    </div>
+    <div class="modal-field">
+      <label>Fase / Grupo</label>
+      <select id="edit-grp">
+        <option value="Esta semana">Esta semana</option>
+        <option value="Em curso">Em curso</option>
+        <option value="Primeiro mês">Primeiro mês</option>
+        <option value="Airbnb">Estratégia Airbnb</option>
+        <option value="Médio prazo">Médio prazo</option>
+        <option value="Longo prazo">Longo prazo</option>
+        <option value="Admin">Admin</option>
+        <option value="Obra">Obra</option>
+        <option value="Jardim">Jardim</option>
+        <option value="Concluído">Concluído</option>
+        <option value="Sugestões IA">Sugestões IA</option>
+        <option value="Personalizado">Personalizado</option>
+      </select>
+    </div>
+    <input type="hidden" id="edit-id">
+    <div class="modal-btns">
+      <button class="modal-delete" onclick="deleteFromModal()">Apagar</button>
+      <button class="modal-cancel" onclick="closeEditModal()">Cancelar</button>
+      <button class="modal-save" onclick="saveEditModal()">Guardar</button>
+    </div>
+  </div>
+</div>
 </div><!-- /pages -->
 
 <nav class="bnav">
@@ -417,6 +520,10 @@ input[type=range]{width:100%;height:4px;accent-color:var(--v);cursor:pointer;}
   <button class="nb" onclick="goPage('mkt',this)">
     <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
     <span>Mercado</span>
+  </button>
+  <button class="nb" onclick="goPage('ia',this)">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 8v4l3 3"/><circle cx="18" cy="6" r="3" fill="currentColor" opacity="0.4"/><path d="M18 3v6M15 6h6"/></svg>
+    <span>IA</span>
   </button>
 </nav>
 </div>
@@ -521,13 +628,15 @@ function save(){
 function goPage(id,btn){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('active');});
-  document.getElementById('p-'+id).classList.add('active');
+  var pg=document.getElementById('p-'+id);
+  if(pg){pg.classList.add('active');}else{console.log('page not found: p-'+id);}
   btn.classList.add('active');
   if(id==='check')renderCheck();
   if(id==='act')renderAct();
   if(id==='fin'){renderFin();renderPY(projYrA);}
   if(id==='ent')renderEnt();
   if(id==='mkt')initSim();
+  if(id==='ia'){renderIAContext();var k=loadApiKey();if(k){document.getElementById('api-key-input').value='sk-ant-••••••••';document.getElementById('key-status').textContent='✓ Chave guardada';document.getElementById('key-status').style.color='var(--v)';}}
 }
 
 function hdrDate(){var d=new Date();document.getElementById('hdr-date').innerHTML=d.getDate()+'/'+(d.getMonth()+1)+'<br>'+d.getFullYear();}
@@ -560,9 +669,9 @@ function renderCheck(){
     groups[g].forEach(function(t){
       h+='<div class="ci'+(t.done?' done':'')+'">';
       h+='<div class="ccb'+(t.done?' chk':'')+'" onclick="toggleTask('+t.id+')"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>';
-      h+='<span class="cit">'+esc(t.text)+'</span>';
-      h+='<span class="badge '+(CAT_C[t.cat]||'ba')+'" style="margin-right:4px;flex-shrink:0;">'+t.cat+'</span>';
-      h+='<button class="cdel" onclick="delTask('+t.id+')">×</button></div>';
+      h+='<span class="cit" onclick="openEditModal('+t.id+')" style="cursor:pointer;">'+esc(t.text)+'</span>';
+      h+='<span class="badge '+(CAT_C[t.cat]||'ba')+'" style="margin-right:2px;flex-shrink:0;">'+t.cat+'</span>';
+      h+='<button class="ci-edit-btn" onclick="openEditModal('+t.id+')">✎</button></div>';
     });
   });
   if(!vis.length)h='<p class="empty-state">Sem tarefas nesta categoria</p>';
@@ -670,6 +779,34 @@ function renderPY(yr){
 }
 function pbar(l,v,m,c){return '<div class="pr"><span class="pr-label">'+l+'</span><div class="pr-bw"><div class="pr-b" style="width:'+Math.round(v/m*100)+'%;background:'+c+';"></div></div><span class="pr-val" style="color:'+c+';">'+fmtk(v)+'</span></div>';}
 
+
+/* IA PAGE */
+.ia-suggestion{background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px;}
+.ia-dot{width:8px;height:8px;border-radius:50%;background:var(--v);flex-shrink:0;margin-top:5px;}
+.ia-text{flex:1;font-size:13px;color:var(--txt);line-height:1.5;}
+.ia-cat{font-size:10px;padding:1px 7px;border-radius:10px;font-weight:600;margin-top:4px;display:inline-block;}
+.ia-add-btn{background:none;border:0.5px solid var(--v);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--v);cursor:pointer;margin-top:6px;font-weight:600;}
+.ia-loading{text-align:center;padding:24px;color:var(--txt2);font-size:13px;}
+.ia-loading svg{animation:spin 1s linear infinite;display:block;margin:0 auto 10px;}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:100;display:none;align-items:flex-end;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--card);border-radius:20px 20px 0 0;padding:20px 16px 32px;width:100%;max-width:440px;margin:0 auto;}
+.modal h3{font-size:15px;font-weight:600;margin-bottom:16px;color:var(--txt);}
+.modal-field{margin-bottom:12px;}
+.modal-field label{font-size:11px;font-weight:600;color:var(--txt2);letter-spacing:0.06em;text-transform:uppercase;display:block;margin-bottom:5px;}
+.modal-field input,.modal-field select,.modal-field textarea{width:100%;background:var(--bg);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--txt);outline:none;font-family:inherit;}
+.modal-field input:focus,.modal-field select:focus,.modal-field textarea:focus{border-color:var(--v);}
+.modal-field textarea{resize:none;height:70px;}
+.modal-btns{display:flex;gap:8px;margin-top:16px;}
+.modal-btns button{flex:1;padding:12px;border-radius:12px;border:none;font-size:14px;font-weight:600;cursor:pointer;}
+.modal-save{background:var(--v);color:#fff;}
+.modal-cancel{background:var(--bg);color:var(--txt2);border:0.5px solid var(--border) !important;}
+.modal-delete{background:var(--t1);color:var(--t2);border:0.5px solid var(--t1) !important;flex:0.5 !important;}
+.ci-edit-btn{background:none;border:none;color:var(--txt3);cursor:pointer;padding:4px;font-size:14px;flex-shrink:0;}
+
 /* ENTIDADES */
 var STATUS_OPTS=['Não contactado','Email enviado','Reunião marcada','Acordo activo'];
 var STATUS_COLORS=['#a0a09a','#BA7517','#185FA5','#1D9E75'];
@@ -724,11 +861,197 @@ function fmt(n){return Math.round(n).toLocaleString('pt-PT')+'€';}
 function fmtk(n){return n>=1000?(n/1000).toFixed(1).replace('.0','')+'k€':Math.round(n)+'€';}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
+
+/* IA SUGESTÕES */
+function saveApiKey(){
+  var k=document.getElementById('api-key-input').value.trim();
+  if(!k||!k.startsWith('sk-')){
+    document.getElementById('key-status').textContent='Chave inválida. Deve começar com sk-';
+    document.getElementById('key-status').style.color='var(--t)';
+    return;
+  }
+  try{localStorage.setItem('qv_apikey',k);}catch(e){}
+  document.getElementById('key-status').textContent='✓ Chave guardada';
+  document.getElementById('key-status').style.color='var(--v)';
+  document.getElementById('api-key-input').value='sk-ant-••••••••';
+}
+
+function loadApiKey(){
+  try{return localStorage.getItem('qv_apikey')||'';}catch(e){return '';}
+}
+
+function renderIAContext(){
+  var el=document.getElementById('ia-context');
+  if(!el)return;
+  var total=S.tasks.length;
+  var done=S.tasks.filter(function(t){return t.done;}).length;
+  var pend=total-done;
+  var mkeys=Object.keys(S.months).sort().reverse();
+  var lastMonth=mkeys.length?S.months[mkeys[0]]:null;
+  var key=loadApiKey();
+  var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  html+='<div><div style="font-size:10px;color:var(--txt2);">Tarefas pendentes</div><div style="font-size:16px;font-weight:700;color:var(--t);">'+pend+'</div></div>';
+  html+='<div><div style="font-size:10px;color:var(--txt2);">Tarefas concluídas</div><div style="font-size:16px;font-weight:700;color:var(--v);">'+done+'</div></div>';
+  if(lastMonth){
+    var tot=(lastMonth.al||0)+(lastMonth.exp||0);
+    html+='<div><div style="font-size:10px;color:var(--txt2);">Último mês registado</div><div style="font-size:14px;font-weight:700;">'+MN[parseInt(mkeys[0].split('-')[1])-1].substr(0,3)+'</div></div>';
+    html+='<div><div style="font-size:10px;color:var(--txt2);">Receita registada</div><div style="font-size:14px;font-weight:700;color:var(--v);">'+fmt(tot)+'</div></div>';
+  }
+  html+='</div>';
+  html+='<div style="margin-top:8px;padding-top:8px;border-top:0.5px solid var(--border);font-size:11px;color:'+(key?'var(--v)':'var(--t)')+';">'+(key?'✓ Chave API configurada':'⚠ Chave API não configurada')+'</div>';
+  el.innerHTML=html;
+}
+
+function buildPrompt(){
+  var done=S.tasks.filter(function(t){return t.done;}).map(function(t){return t.text;});
+  var pend=S.tasks.filter(function(t){return !t.done;}).map(function(t){return t.text;});
+  var mkeys=Object.keys(S.months).sort().reverse();
+  var finInfo='';
+  if(mkeys.length){
+    var m=S.months[mkeys[0]];
+    var tot=(m.al||0)+(m.exp||0);
+    finInfo='Último mês registado: '+mkeys[0]+' — '+m.noites+' noites, receita '+Math.round(tot)+'€, custos '+Math.round(m.custo||0)+'€.';
+  }
+  var entContacted=ENTITIES.filter(function(e){return (S.entStatus[e.id]||0)>0;}).map(function(e){return e.name;});
+
+  return 'És um consultor especializado em ecoturismo e turismo rural em Portugal. '+
+    'Estás a ajudar a Quinta das Valentas, um projecto de 8,5 hectares em Montemor-o-Novo, Alentejo, '+
+    'às margens do Rio Almansor. O projecto tem 4 vertentes: alojamento local (Casa do Freixo, 5 quartos, licença AL obtida), '+
+    'formações e workshops, carpintaria e produtos, e reflorestação com viveiro de autóctones. '+
+    'A proprietária é Isabel Pinto Coelho. O Airbnb está a arrancar agora. '+
+    '
+
+TAREFAS JÁ CONCLUÍDAS:
+'+done.slice(0,10).join('
+')+
+    '
+
+TAREFAS PENDENTES:
+'+pend.slice(0,15).join('
+')+
+    (finInfo?'
+
+ACTIVIDADE FINANCEIRA:
+'+finInfo:'')+
+    (entContacted.length?'
+
+ENTIDADES JÁ CONTACTADAS:
+'+entContacted.join(', '):'')+
+    '
+
+Com base neste contexto, sugere exactamente 6 novas tarefas ou acções concretas e prioritárias para a Quinta das Valentas. '+
+    'Sê específico e prático. Responde APENAS em JSON válido, sem texto antes ou depois, neste formato exacto:
+'+
+    '{"sugestoes":[{"texto":"tarefa concreta","categoria":"AL|Airbnb|admin|obra|jardim|outro","prioridade":"alta|media|baixa","razao":"uma frase de justificação"}]}';
+}
+
+async function getSuggestions(){
+  var key=loadApiKey();
+  if(!key){
+    document.getElementById('ia-result').innerHTML='<div class="card ct"><h3>Chave API necessária</h3><p>Introduz a tua chave API da Anthropic no campo acima para usar esta funcionalidade.</p></div>';
+    return;
+  }
+  var btn=document.getElementById('ia-btn');
+  btn.disabled=true;
+  btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> A consultar o Claude...';
+  document.getElementById('ia-result').innerHTML='<div class="ia-loading"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--v)" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>A analisar a tua quinta...</div>';
+
+  try{
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true'},
+      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1000,messages:[{role:'user',content:buildPrompt()}]})
+    });
+    var data=await resp.json();
+    if(data.error){throw new Error(data.error.message||'Erro API');}
+    var text=data.content[0].text;
+    var clean=text.replace(/```json|```/g,'').trim();
+    var parsed=JSON.parse(clean);
+    renderSuggestions(parsed.sugestoes||[]);
+  }catch(e){
+    console.log('IA error:',e);
+    document.getElementById('ia-result').innerHTML='<div class="card ct"><h3>Erro</h3><p>'+esc(e.message||'Erro desconhecido. Verifica a chave API.')+'</p></div>';
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M18 3v6M15 6h6"/></svg> Pedir sugestões ao Claude';
+  }
+}
+
+function renderSuggestions(sugs){
+  if(!sugs.length){document.getElementById('ia-result').innerHTML='<p class="empty-state">Sem sugestões</p>';return;}
+  var PRIO_C={alta:'bt',media:'ba',baixa:'bb'};
+  var h='<div class="sl">'+sugs.length+' sugestões para a quinta</div>';
+  sugs.forEach(function(s,i){
+    h+='<div class="ia-suggestion">';
+    h+='<div class="ia-dot"></div>';
+    h+='<div style="flex:1;">';
+    h+='<div class="ia-text">'+esc(s.texto)+'</div>';
+    h+='<div style="font-size:11px;color:var(--txt2);margin-top:3px;font-style:italic;">'+esc(s.razao)+'</div>';
+    h+='<div style="display:flex;gap:6px;align-items:center;margin-top:6px;">';
+    h+='<span class="ia-cat '+(CAT_C[s.categoria]||'ba')+'">'+esc(s.categoria)+'</span>';
+    h+='<span class="badge '+(PRIO_C[s.prioridade]||'bb')+'">'+esc(s.prioridade)+'</span>';
+    h+='<button class="ia-add-btn" onclick="addFromIA('+i+',this)" data-texto="'+esc(s.texto)+'" data-cat="'+esc(s.categoria)+'">+ Adicionar</button>';
+    h+='</div></div></div>';
+  });
+  document.getElementById('ia-result').innerHTML=h;
+}
+
+var lastSuggestions=[];
+function addFromIA(idx,btn){
+  var texto=btn.dataset.texto,cat=btn.dataset.cat;
+  S.tasks.push({id:Date.now(),text:texto,cat:cat,done:false,grp:'Sugestões IA'});
+  save();
+  btn.textContent='✓ Adicionada';
+  btn.style.background='var(--v)';
+  btn.style.color='#fff';
+  btn.style.borderColor='var(--v)';
+  btn.disabled=true;
+}
+
+
+/* EDIT MODAL */
+function openEditModal(id){
+  var t=S.tasks.find(function(x){return x.id===id;});
+  if(!t)return;
+  document.getElementById('edit-id').value=id;
+  document.getElementById('edit-text').value=t.text;
+  document.getElementById('edit-cat').value=t.cat||'outro';
+  document.getElementById('edit-grp').value=t.grp||'Personalizado';
+  document.getElementById('edit-modal').classList.add('open');
+  setTimeout(function(){document.getElementById('edit-text').focus();},100);
+}
+function closeEditModal(e){
+  if(e&&e.target!==document.getElementById('edit-modal'))return;
+  document.getElementById('edit-modal').classList.remove('open');
+}
+function saveEditModal(){
+  var id=parseInt(document.getElementById('edit-id').value);
+  var t=S.tasks.find(function(x){return x.id===id;});
+  if(!t)return;
+  t.text=document.getElementById('edit-text').value.trim()||t.text;
+  t.cat=document.getElementById('edit-cat').value;
+  t.grp=document.getElementById('edit-grp').value;
+  save();
+  document.getElementById('edit-modal').classList.remove('open');
+  renderCheck();
+}
+function deleteFromModal(){
+  var id=parseInt(document.getElementById('edit-id').value);
+  S.tasks=S.tasks.filter(function(x){return x.id!==id;});
+  save();
+  document.getElementById('edit-modal').classList.remove('open');
+  renderCheck();
+}
+
 /* INIT */
 load();
 hdrDate();
-document.getElementById('mkt-date').textContent=new Date().toLocaleDateString('pt-PT');
-renderCheck();renderFin();renderEnt();initSim();renderPY('2026');
+try{document.getElementById('mkt-date').textContent=new Date().toLocaleDateString('pt-PT');}catch(e){}
+try{renderCheck();}catch(e){console.log('renderCheck err',e);}
+try{renderFin();}catch(e){console.log('renderFin err',e);}
+try{renderEnt();}catch(e){console.log('renderEnt err',e);}
+try{initSim();}catch(e){console.log('initSim err',e);}
+try{renderPY('2026');}catch(e){console.log('renderPY err',e);}
 </script>
 </body>
 </html>
