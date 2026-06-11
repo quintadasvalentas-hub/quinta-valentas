@@ -2,12 +2,13 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1D9E75">
 <title>Quinta das Valentas</title>
 <style>
+
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 :root{
@@ -217,11 +218,12 @@ body[data-page="ent"] [data-page="ent"],
 body[data-page="mkt"] [data-page="mkt"],
 body[data-page="ia"] [data-page="ia"]
 { color: var(--v) !important; }
+
 </style>
 </head>
-<body data-page="home">
+<body>
+<div style="display:flex;flex-direction:column;height:100vh;max-width:440px;margin:0 auto;background:var(--bg);">
 
-<div class="app">
 <div class="header">
   <div class="logo">
     <svg viewBox="0 0 24 24"><path d="M12 2C6 8 4 14 12 22c8-8 6-14 0-20z"/><line x1="12" y1="22" x2="12" y2="10"/></svg>
@@ -233,8 +235,8 @@ body[data-page="ia"] [data-page="ia"]
   <div class="hdr-r" id="hdr-date"></div>
 </div>
 
-<div class="pages" id="pages-wrap">
-<div class="page" id="p-home"><div class="metrics">
+<div id="pages-wrap" style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+<div id="p-home" style="display:none;padding:16px 16px 24px;"><div class="metrics">
     <div class="metric"><div class="lbl">Área</div><div class="val">8,5 ha</div><div class="sub">600m ribeira</div></div>
     <div class="metric"><div class="lbl">AL</div><div class="val">Casa Freixo</div><div class="sub">Licença obtida ✓</div></div>
     <div class="metric"><div class="lbl">Meta 2025</div><div class="val">38k€</div><div class="sub">receita anual</div></div>
@@ -284,8 +286,8 @@ body[data-page="ia"] [data-page="ia"]
   </div>
 </div>
 
-<!-- CHECKLIST --></div>
-<div class="page" id="p-check"><div class="cstats">
+<!-- CHECKLIST --></div></div>
+<div id="p-check" style="display:none;padding:16px 16px 24px;"><div class="cstats">
     <div class="cstat"><div class="n" id="ck-total">0</div><div class="l">total</div></div>
     <div class="cstat"><div class="n" id="ck-done" style="color:var(--v);">0</div><div class="l">feitas</div></div>
     <div class="cstat"><div class="n" id="ck-pend" style="color:var(--t);">0</div><div class="l">pendentes</div></div>
@@ -313,8 +315,8 @@ body[data-page="ia"] [data-page="ia"]
   <button onclick="clearDone()" style="width:100%;margin-top:8px;background:none;border:0.5px solid var(--border);border-radius:10px;padding:10px;font-size:13px;color:var(--txt2);cursor:pointer;">Limpar concluídas</button>
 </div>
 
-<!-- ACTIVIDADE --></div>
-<div class="page" id="p-act"><div class="mnav">
+<!-- ACTIVIDADE --></div></div>
+<div id="p-act" style="display:none;padding:16px 16px 24px;"><div class="mnav">
     <button onclick="changeMonth(-1)">&#8592;</button>
     <h2 id="month-title">Junho 2025</h2>
     <button onclick="changeMonth(1)">&#8594;</button>
@@ -341,8 +343,8 @@ body[data-page="ia"] [data-page="ia"]
   <div id="hist-list"></div>
 </div>
 
-<!-- FINANÇAS --></div>
-<div class="page" id="p-fin"><div class="tab-row">
+<!-- FINANÇAS --></div></div>
+<div id="p-fin" style="display:none;padding:16px 16px 24px;"><div class="tab-row">
     <button class="tab-btn active" onclick="finTab('rec',this)">Receitas</button>
     <button class="tab-btn" onclick="finTab('cus',this)">Custos</button>
     <button class="tab-btn" onclick="finTab('proj',this)">Projeções</button>
@@ -386,8 +388,8 @@ body[data-page="ia"] [data-page="ia"]
   </div>
 </div>
 
-<!-- ENTIDADES --></div>
-<div class="page" id="p-ent"><div class="card cv" style="margin-bottom:14px;">
+<!-- ENTIDADES --></div></div>
+<div id="p-ent" style="display:none;padding:16px 16px 24px;"><div class="card cv" style="margin-bottom:14px;">
     <h3>Acordos preferenciais</h3>
     <p>Entidades a contactar para alojamento preferencial — técnicos, formadores, artistas em residência. Regista o estado de cada contacto.</p>
   </div>
@@ -402,8 +404,8 @@ body[data-page="ia"] [data-page="ia"]
   <div id="ent-list"></div>
 </div>
 
-<!-- MERCADO --></div>
-<div class="page" id="p-mkt"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+<!-- MERCADO --></div></div>
+<div id="p-mkt" style="display:none;padding:16px 16px 24px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
     <span style="font-size:11px;color:var(--txt2);">Actualizado: <span id="mkt-date"></span></span>
     <button onclick="refreshMkt()" id="mkt-btn" style="font-size:11px;padding:5px 10px;border-radius:8px;border:0.5px solid var(--v);color:var(--v);background:none;cursor:pointer;">↻ Actualizar</button>
   </div>
@@ -438,8 +440,8 @@ body[data-page="ia"] [data-page="ia"]
 </div>
 
 
-<!-- IA SUGESTÕES --></div>
-<div class="page" id="p-ia"><div class="card cv" style="margin-bottom:14px;">
+<!-- IA SUGESTÕES --></div></div>
+<div id="p-ia" style="display:none;padding:16px 16px 24px;"><div class="card cv" style="margin-bottom:14px;">
     <h3>Sugestões com IA</h3>
     <p>O Claude analisa o estado actual da tua quinta e sugere novas tarefas e acções concretas.</p>
   </div>
@@ -510,88 +512,51 @@ body[data-page="ia"] [data-page="ia"]
       <button class="modal-save" onclick="saveEditModal()">Guardar</button>
     </div>
   </div>
-</div></div>
-</div><!-- /pages -->
-
-<!-- EDIT MODAL -->
-<div class="modal-overlay" id="edit-modal" onclick="closeEditModal(event)">
-  <div class="modal">
-    <h3>Editar tarefa</h3>
-    <div class="modal-field">
-      <label>Texto</label>
-      <textarea id="edit-text"></textarea>
-    </div>
-    <div class="modal-field">
-      <label>Categoria</label>
-      <select id="edit-cat">
-        <option value="AL">AL</option>
-        <option value="Airbnb">Airbnb</option>
-        <option value="admin">Admin</option>
-        <option value="obra">Obra</option>
-        <option value="jardim">Jardim</option>
-        <option value="outro">Outro</option>
-      </select>
-    </div>
-    <div class="modal-field">
-      <label>Fase / Grupo</label>
-      <select id="edit-grp">
-        <option value="Esta semana">Esta semana</option>
-        <option value="Em curso">Em curso</option>
-        <option value="Primeiro mês">Primeiro mês</option>
-        <option value="Airbnb">Estratégia Airbnb</option>
-        <option value="Médio prazo">Médio prazo</option>
-        <option value="Longo prazo">Longo prazo</option>
-        <option value="Admin">Admin</option>
-        <option value="Obra">Obra</option>
-        <option value="Jardim">Jardim</option>
-        <option value="Concluído">Concluído</option>
-        <option value="Sugestões IA">Sugestões IA</option>
-        <option value="Personalizado">Personalizado</option>
-      </select>
-    </div>
-    <input type="hidden" id="edit-id">
-    <div class="modal-btns">
-      <button class="modal-delete" onclick="deleteFromModal()">Apagar</button>
-      <button class="modal-cancel" onclick="closeEditModal()">Cancelar</button>
-      <button class="modal-save" onclick="saveEditModal()">Guardar</button>
-    </div>
-  </div>
-</div>
-</div><!-- /pages -->
-
-<nav class="bnav" id="bnav">
-  <button class="nb" data-page="home" onclick="nav('home')">
-    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    <span>Início</span>
-  </button>
-  <button class="nb" data-page="check" onclick="nav('check')">
-    <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-    <span>Tarefas</span>
-  </button>
-  <button class="nb" data-page="act" onclick="nav('act')">
-    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-    <span>Actividade</span>
-  </button>
-  <button class="nb" data-page="fin" onclick="nav('fin')">
-    <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-    <span>Finanças</span>
-  </button>
-  <button class="nb" data-page="ent" onclick="nav('ent')">
-    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-    <span>Entidades</span>
-  </button>
-  <button class="nb" data-page="mkt" onclick="nav('mkt')">
-    <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-    <span>Mercado</span>
-  </button>
-  <button class="nb" data-page="ia" onclick="nav('ia')">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M18 3v6M15 6h6"/></svg>
-    <span>IA</span>
-  </button>
-</nav>
+</div></div></div>
 </div>
 
+
+
+<div style="display:flex;background:var(--card);border-top:0.5px solid var(--border);padding-bottom:env(safe-area-inset-bottom);">
+<button id="nb-home" onclick="nav('home')" style="flex:1;min-width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:var(--txt3);padding:8px 2px;cursor:pointer;font-family:inherit;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span style="font-size:9px;font-weight:500;">Início</span></button>
+<button id="nb-check" onclick="nav('check')" style="flex:1;min-width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:var(--txt3);padding:8px 2px;cursor:pointer;font-family:inherit;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span style="font-size:9px;font-weight:500;">Tarefas</span></button>
+<button id="nb-act" onclick="nav('act')" style="flex:1;min-width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:var(--txt3);padding:8px 2px;cursor:pointer;font-family:inherit;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span style="font-size:9px;font-weight:500;">Actividade</span></button>
+<button id="nb-fin" onclick="nav('fin')" style="flex:1;min-width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:var(--txt3);padding:8px 2px;cursor:pointer;font-family:inherit;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span style="font-size:9px;font-weight:500;">Finanças</span></button>
+<button id="nb-ent" onclick="nav('ent')" style="flex:1;min-width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:var(--txt3);padding:8px 2px;cursor:pointer;font-family:inherit;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span style="font-size:9px;font-weight:500;">Entidades</span></button>
+<button id="nb-mkt" onclick="nav('mkt')" style="flex:1;min-width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:var(--txt3);padding:8px 2px;cursor:pointer;font-family:inherit;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span style="font-size:9px;font-weight:500;">Mercado</span></button>
+<button id="nb-ia" onclick="nav('ia')" style="flex:1;min-width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:var(--txt3);padding:8px 2px;cursor:pointer;font-family:inherit;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M18 3v6M15 6h6"/></svg><span style="font-size:9px;font-weight:500;">IA</span></button>
+</div>
+
+</div>
 <script>
+var ALL_PAGES = ['home','check','act','fin','ent','mkt','ia'];
+var projYrA = '2026';
+var finTabA = 'rec';
+
+function nav(id) {
+  ALL_PAGES.forEach(function(pid) {
+    var el = document.getElementById('p-' + pid);
+    if(el) el.style.display = (pid === id) ? 'block' : 'none';
+    var btn = document.getElementById('nb-' + pid);
+    if(btn) btn.style.color = (pid === id) ? 'var(--v)' : 'var(--txt3)';
+  });
+  document.getElementById('pages-wrap').scrollTop = 0;
+  if(id==='check') try{renderCheck();}catch(e){console.log(e);}
+  if(id==='act') try{renderAct();}catch(e){console.log(e);}
+  if(id==='fin') { try{renderFin();}catch(e){} try{renderPY(projYrA);}catch(e){} }
+  if(id==='ent') try{renderEnt();}catch(e){console.log(e);}
+  if(id==='mkt') try{initSim();}catch(e){}
+  if(id==='ia') {
+    try{renderIAContext();}catch(e){}
+    var k=loadApiKey();
+    if(k){
+      try{document.getElementById('api-key-input').value='sk-ant-••••••••';}catch(e){}
+      try{document.getElementById('key-status').textContent='✓ Chave guardada';document.getElementById('key-status').style.color='var(--v)';}catch(e){}
+    }
+  }
+}
+
+
 function nav(id) {
   document.body.setAttribute('data-page', id);
   document.getElementById('pages-wrap').scrollTop = 0;
@@ -1144,6 +1109,10 @@ try{renderEnt();}catch(e){console.log('renderEnt err',e);}
 try{initSim();}catch(e){console.log('initSim err',e);}
 try{renderPY('2026');}catch(e){console.log('renderPY err',e);}
 
+
+
+// Start on home page
+nav('home');
 </script>
 </body>
 </html>
