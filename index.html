@@ -321,6 +321,24 @@ input[type=range]{width:100%;height:4px;accent-color:var(--v);cursor:pointer;}
     <button class="efb" data-g="outros" onclick="setEF(this)">Outros</button>
   </div>
   <div id="elist"></div>
+  <div class="sl gap">nova entidade</div>
+  <div class="card" style="padding:12px 14px;">
+    <div class="ir"><label>Nome</label><input type="text" id="en-name" placeholder="Nome da entidade..." style="background:var(--bg);border:.5px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;color:var(--txt);width:100%;text-align:left;outline:none;font-family:inherit;"></div>
+    <div class="ir"><label>Grupo</label>
+      <select id="en-grp" style="background:var(--bg);border:.5px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;color:var(--txt);outline:none;cursor:pointer;font-family:inherit;">
+        <option value="cultural">Culturais</option>
+        <option value="coop">Cooperativas</option>
+        <option value="camara">Câmara</option>
+        <option value="univ">Universidades</option>
+        <option value="outros">Outros</option>
+      </select>
+    </div>
+    <div class="ir"><label>Motivo</label><input type="text" id="en-why" placeholder="Porquê contactar..." style="background:var(--bg);border:.5px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;color:var(--txt);width:100%;text-align:left;outline:none;font-family:inherit;"></div>
+    <div class="ir"><label>Email</label><input type="email" id="en-email" placeholder="email@..." style="background:var(--bg);border:.5px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;color:var(--txt);width:100%;text-align:left;outline:none;font-family:inherit;"></div>
+    <div class="ir"><label>Telefone</label><input type="tel" id="en-phone" placeholder="+351..." style="background:var(--bg);border:.5px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;color:var(--txt);width:100%;text-align:left;outline:none;font-family:inherit;"></div>
+    <div class="ir" style="border:none;"><label>Website</label><input type="text" id="en-web" placeholder="website.pt" style="background:var(--bg);border:.5px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;color:var(--txt);width:100%;text-align:left;outline:none;font-family:inherit;"></div>
+  </div>
+  <button onclick="addEnt()" style="width:100%;background:var(--v);color:#fff;border:none;border-radius:12px;padding:13px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:4px;">+ Adicionar entidade</button>
 </div>
 
 <div class="pg" id="pg-mkt">
@@ -493,11 +511,11 @@ var ENTS = [
   {id:10,name:'Gandum Village',grp:'outros',why:'Overflow em épocas altas — parceria mútua',email:'',phone:'',web:'Contacto directo'}
 ];
 
-var D = {tasks:null,months:{},entries:[],entSt:{},sim:{n:12,p:300,e:400},mon:new Date(),cat:'todas',ef:'todas'};
+var D = {tasks:null,months:{},entries:[],entSt:{},customEnts:[],sim:{n:12,p:300,e:400},mon:new Date(),cat:'todas',ef:'todas'};
 var curPY = '2026';
 var curFT = 'r';
 
-function save() { try { localStorage.setItem('qv4', JSON.stringify({tasks:D.tasks,months:D.months,entries:D.entries,entSt:D.entSt,sim:D.sim})); } catch(e) {} }
+function save() { try { localStorage.setItem('qv4', JSON.stringify({tasks:D.tasks,months:D.months,entries:D.entries,entSt:D.entSt,customEnts:D.customEnts,sim:D.sim})); } catch(e) {} }
 function load() {
   try {
     var raw = localStorage.getItem('qv4');
@@ -507,6 +525,7 @@ function load() {
       D.months = p.months || {};
       D.entries = p.entries || [];
       D.entSt = p.entSt || {};
+      D.customEnts = p.customEnts || [];
       if (p.sim) D.sim = p.sim;
     }
   } catch(e) {}
@@ -723,13 +742,44 @@ function drawPY(yr) {
 function pb(l,v,m,c) { return '<div class="pr"><span class="prl">' + l + '</span><div class="prw"><div class="prb" style="width:' + Math.round(v/m*100) + '%;background:' + c + ';"></div></div><span class="prv" style="color:' + c + ';">' + fk(v) + '</span></div>'; }
 
 // ---- ENTITIES ----
+function addEnt() {
+  var name = document.getElementById('en-name').value.trim();
+  if (!name) return;
+  var ent = {
+    id: 'c' + Date.now(),
+    name: name,
+    grp: document.getElementById('en-grp').value,
+    why: document.getElementById('en-why').value.trim(),
+    email: document.getElementById('en-email').value.trim(),
+    phone: document.getElementById('en-phone').value.trim(),
+    web: document.getElementById('en-web').value.trim(),
+    custom: true
+  };
+  D.customEnts.push(ent);
+  D.entSt[ent.id] = 0;
+  save();
+  document.getElementById('en-name').value = '';
+  document.getElementById('en-why').value = '';
+  document.getElementById('en-email').value = '';
+  document.getElementById('en-phone').value = '';
+  document.getElementById('en-web').value = '';
+  drawEnts();
+}
+
+function delEnt(id) {
+  D.customEnts = D.customEnts.filter(function(e){ return e.id !== id; });
+  delete D.entSt[id];
+  save(); drawEnts();
+}
+
 function setEF(btn) {
   D.ef = btn.dataset.g;
   document.querySelectorAll('.efb').forEach(function(b){b.classList.remove('on');}); btn.classList.add('on'); drawEnts();
 }
 function setES(id, v) { D.entSt[id] = parseInt(v); save(); drawEnts(); }
 function drawEnts() {
-  var vis = D.ef==='todas' ? ENTS : ENTS.filter(function(e){return e.grp===D.ef;});
+  var all = ENTS.concat(D.customEnts);
+  var vis = D.ef==='todas' ? all : all.filter(function(e){return e.grp===D.ef;});
   var h = '';
   vis.forEach(function(e) {
     var st = D.entSt[e.id] || 0;
@@ -742,7 +792,9 @@ function drawEnts() {
     if (e.web) h += '<div class="ei">' + esc(e.web) + '</div>';
     h += '<div class="es"><label>Estado:</label><select onchange="setES(' + e.id + ',this.value)">';
     SOPT.forEach(function(o,i){ h += '<option value="' + i + '"' + (st===i?' selected':'') + '>' + o + '</option>'; });
-    h += '</select></div></div>';
+    h += '</select>';
+    if (e.custom) h += '<button onclick="delEnt(\'' + e.id + '\')" style="background:none;border:none;color:var(--txt3);cursor:pointer;font-size:18px;padding:4px;">&#215;</button>';
+    h += '</div></div>';
   });
   document.getElementById('elist').innerHTML = h || '<p class="empty">Sem entidades</p>';
 }
@@ -821,6 +873,7 @@ function exportData() {
     months: D.months,
     entries: D.entries,
     entSt: D.entSt,
+    customEnts: D.customEnts,
     sim: D.sim,
     exported: new Date().toISOString()
   };
@@ -847,6 +900,7 @@ function importData(event) {
       if (data.months) D.months = data.months;
       if (data.entries) D.entries = data.entries;
       if (data.entSt) D.entSt = data.entSt;
+      if (data.customEnts) D.customEnts = data.customEnts;
       if (data.sim) D.sim = data.sim;
       save();
       drawTasks(); drawFin(); drawEnts(); drawSim();
