@@ -197,9 +197,6 @@ input[type=range]{width:100%;height:4px;accent-color:var(--v);cursor:pointer;}
 <div class="scroller" id="scroller">
 
 <div class="pg on" id="pg-home">
-  <div id="debug-bar" style="background:#D85A30;color:#fff;text-align:center;padding:10px;border-radius:10px;margin-bottom:12px;font-size:13px;font-weight:600;cursor:pointer;touch-action:manipulation;" onclick="document.getElementById('debug-bar').textContent='JS FUNCIONA! Toca nas abas.'">
-    TOCA AQUI PARA TESTAR JS
-  </div>
   <div class="g2">
     <div class="met"><div class="l">Área</div><div class="v">8,5 ha</div><div class="s">600m ribeira</div></div>
     <div class="met"><div class="l">AL</div><div class="v" style="font-size:14px;">Casa Freixo</div><div class="s">Licença obtida ✓</div></div>
@@ -214,6 +211,12 @@ input[type=range]{width:100%;height:4px;accent-color:var(--v);cursor:pointer;}
     <div class="lr"><div class="li" style="background:var(--t1);color:var(--t2);"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div><h4>Conta Airbnb + anúncio</h4><p>Esta semana</p></div><span class="badge bt mla">A fazer</span></div>
   </div>
   <div class="card cv gap"><h3>Missão</h3><p>Turismo lento, regeneração ecológica do Rio Almansor e experiências imersivas em 8,5 hectares no Alentejo.</p></div>
+  <div class="sl gap">dados</div>
+  <div style="display:flex;gap:10px;">
+    <button onclick="exportData()" style="flex:1;background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:12px;font-size:13px;font-weight:600;color:var(--v);cursor:pointer;font-family:inherit;">&#8595; Exportar dados</button>
+    <label style="flex:1;background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:12px;font-size:13px;font-weight:600;color:var(--txt2);cursor:pointer;text-align:center;display:flex;align-items:center;justify-content:center;">&#8593; Importar dados<input type="file" id="import-file" accept=".json" style="display:none;" onchange="importData(event)"></label>
+  </div>
+  <p id="import-msg" style="font-size:11px;color:var(--v);text-align:center;margin-top:6px;display:none;"></p>
 </div>
 
 <div class="pg" id="pg-check">
@@ -274,6 +277,7 @@ input[type=range]{width:100%;height:4px;accent-color:var(--v);cursor:pointer;}
     <button class="tb" id="tb-c" onclick="setFT('c',this)">Custos</button>
     <button class="tb" id="tb-p" onclick="setFT('p',this)">Projeções</button>
   </div>
+  <div id="sync-fb" style="display:none;background:var(--v1);color:var(--v2);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:600;margin-bottom:10px;text-align:center;">✓ Actividade actualizada</div>
   <div id="ft-r">
     <div class="rtot" id="rtot-r"></div>
     <div class="radd">
@@ -613,6 +617,35 @@ function drawAct() {
   document.getElementById('in-h').value = d.h || '';
   calcAct(); drawHist();
 }
+
+function syncFinToAct() {
+  // Sum entries for current month and update activity fields
+  var k = monKey(D.mon);
+  var recs = D.entries.filter(function(e){ return e.type==='r' && e.mk===k; });
+  var csts = D.entries.filter(function(e){ return e.type==='c' && e.mk===k; });
+  var alTotal = recs.filter(function(e){ return e.c==='AL'; }).reduce(function(a,e){return a+e.v;},0);
+  var expTotal = recs.filter(function(e){ return e.c==='exp'; }).reduce(function(a,e){return a+e.v;},0);
+  var cstTotal = csts.reduce(function(a,e){return a+e.v;},0);
+  // Update months record
+  if (!D.months[k]) D.months[k] = {n:0,a:0,e:0,c:0,h:0};
+  D.months[k].a = alTotal;
+  D.months[k].e = expTotal;
+  D.months[k].c = cstTotal;
+  save();
+  // Update activity input fields if they exist (page may not be active)
+  var inA = document.getElementById('in-a');
+  var inE = document.getElementById('in-e');
+  var inC = document.getElementById('in-c');
+  if (inA) inA.value = alTotal || '';
+  if (inE) inE.value = expTotal || '';
+  if (inC) inC.value = cstTotal || '';
+  calcAct();
+  drawHist();
+  // Show sync feedback in fin tab
+  var fb = document.getElementById('sync-fb');
+  if (fb) { fb.style.display='block'; setTimeout(function(){ fb.style.display='none'; }, 2000); }
+}
+
 function drawHist() {
   var keys = Object.keys(D.months).sort().reverse(), h = '';
   keys.slice(0,6).forEach(function(k) {
@@ -642,18 +675,18 @@ function setFT(t, btn) {
 function addR() {
   var d=document.getElementById('rd').value.trim(), v=parseFloat(document.getElementById('rv').value), c=document.getElementById('rc').value;
   if (!d||!v) return;
-  D.entries.push({id:Date.now(),type:'r',d:d,v:v,c:c});
+  D.entries.push({id:Date.now(),type:'r',d:d,v:v,c:c,mk:monKey(D.mon)});
   document.getElementById('rd').value=''; document.getElementById('rv').value='';
-  save(); drawFin();
+  save(); drawFin(); syncFinToAct();
 }
 function addC() {
   var d=document.getElementById('cd').value.trim(), v=parseFloat(document.getElementById('cv2').value), c=document.getElementById('cc').value;
   if (!d||!v) return;
-  D.entries.push({id:Date.now(),type:'c',d:d,v:v,c:c});
+  D.entries.push({id:Date.now(),type:'c',d:d,v:v,c:c,mk:monKey(D.mon)});
   document.getElementById('cd').value=''; document.getElementById('cv2').value='';
-  save(); drawFin();
+  save(); drawFin(); syncFinToAct();
 }
-function delE(id) { D.entries = D.entries.filter(function(e){return e.id!==id;}); save(); drawFin(); }
+function delE(id) { D.entries = D.entries.filter(function(e){return e.id!==id;}); save(); drawFin(); syncFinToAct(); }
 function drawFin() {
   var recs = D.entries.filter(function(e){return e.type==='r';}), csts = D.entries.filter(function(e){return e.type==='c';});
   var tR = recs.reduce(function(a,e){return a+e.v;},0), tC = csts.reduce(function(a,e){return a+e.v;},0), liq = tR-tC;
@@ -778,6 +811,55 @@ async function getIA() {
 function addIA(btn) {
   D.tasks.push({id:Date.now(), text:btn.dataset.t, cat:btn.dataset.c, done:false, grp:'Sugestões IA'});
   save(); btn.textContent = '\u2713 Adicionada'; btn.style.background = 'var(--v)'; btn.style.color = '#fff'; btn.disabled = true;
+}
+
+
+// ---- EXPORT / IMPORT ----
+function exportData() {
+  var data = {
+    tasks: D.tasks,
+    months: D.months,
+    entries: D.entries,
+    entSt: D.entSt,
+    sim: D.sim,
+    exported: new Date().toISOString()
+  };
+  var json = JSON.stringify(data, null, 2);
+  var blob = new Blob([json], {type: 'application/json'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'quinta-valentas-' + new Date().toISOString().split('T')[0] + '.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function importData(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var data = JSON.parse(e.target.result);
+      if (data.tasks) D.tasks = data.tasks;
+      if (data.months) D.months = data.months;
+      if (data.entries) D.entries = data.entries;
+      if (data.entSt) D.entSt = data.entSt;
+      if (data.sim) D.sim = data.sim;
+      save();
+      drawTasks(); drawFin(); drawEnts(); drawSim();
+      var msg = document.getElementById('import-msg');
+      msg.textContent = '✓ Dados importados com sucesso';
+      msg.style.display = 'block';
+      setTimeout(function(){ msg.style.display = 'none'; }, 3000);
+    } catch(err) {
+      alert('Erro ao importar: ficheiro inválido');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
 }
 
 // ---- INIT ----
