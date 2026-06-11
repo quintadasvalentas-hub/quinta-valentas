@@ -997,5 +997,32 @@ drawEnts();
 drawSim();
 drawPY('2026');
 </script>
+
+<div class="mo" id="ent-modal" onclick="closeEntMo(event)">
+  <div class="md">
+    <h3>Editar entidade</h3>
+    <div class="mf"><label>Nome</label><input type="text" id="em-name" placeholder="Nome..."></div>
+    <div class="mf"><label>Grupo</label>
+      <select id="em-grp">
+        <option value="cultural">Culturais</option>
+        <option value="coop">Cooperativas</option>
+        <option value="camara">Câmara</option>
+        <option value="univ">Universidades</option>
+        <option value="outros">Outros</option>
+      </select>
+    </div>
+    <div class="mf"><label>Motivo</label><input type="text" id="em-why" placeholder="Porquê contactar..."></div>
+    <div class="mf"><label>Email</label><input type="email" id="em-email" placeholder="email@..."></div>
+    <div class="mf"><label>Telefone</label><input type="tel" id="em-phone" placeholder="+351..."></div>
+    <div class="mf"><label>Website</label><input type="text" id="em-web" placeholder="website.pt"></div>
+    <input type="hidden" id="em-id">
+    <input type="hidden" id="em-custom">
+    <div class="mbs">
+      <button class="mb-del" id="em-del-btn" onclick="delEntMo()">Apagar</button>
+      <button class="mb-cancel" onclick="closeEntMo()">Cancelar</button>
+      <button class="mb-save" onclick="saveEntMo()">Guardar</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
